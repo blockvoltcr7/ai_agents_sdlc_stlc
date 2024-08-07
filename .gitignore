@@ -5,7 +5,7 @@ __pycache__/
 *$py.class
 
 # Virtual environments
-venv/
+venv_ai_sdlc_stlc/
 env/
 .env
 
