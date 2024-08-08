@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.graph_objects as go
-
+from utils.streamlit_utils import add_floating_chat_button
+from components.chat_interface import chat_interface
 def introduction():
     st.title("SDLC Overview: AI-Powered Software Development")
     st.write("""
@@ -84,10 +85,6 @@ def ai_agents_in_roles():
 
     st.write(role_descriptions[selected_role])
 
-def interactive_demo():
-    st.header("Interactive Demo or Case Study")
-    if st.button("Try AI Assistant Demo"):
-        st.write("Simulated chat interface demonstrating how an AI agent might assist in a specific SDLC task...")
 
 def sidebar_resources():
     st.sidebar.title("Resources and Next Steps")
@@ -104,10 +101,23 @@ def feedback_section():
         st.write("Thank you for your positive feedback!")
     if st.button("👎"):
         st.write("We appreciate your honesty and will work to improve.")
+        
+def interactive_demo():
+    st.header("Interactive AI Assistant Demo")
+    st.write("This demo uses Groq's LLM to simulate an AI assistant helping with SDLC-related questions.")
+
+    system_message = """
+    You are an AI assistant specialized in the Software Development Life Cycle (SDLC). 
+    Provide concise, helpful responses about SDLC phases, roles, and how AI can assist in each. 
+    Keep responses under 100 words. Focus on practical applications and real-world examples 
+    when discussing AI integration in SDLC processes.
+    """
+    
+    chat_interface(system_message)
 
 def footer():
     st.write("---")
-    st.write("© 2024 Your Company Name | Last updated: August 2024")
+    st.write("© Sami Sabir-Idrissi | Last updated: August 2024")
 
 def main():
     introduction()
@@ -115,7 +125,7 @@ def main():
     create_sdlc_visualization()
     explore_sdlc_phases()
     ai_agents_in_roles()
-    interactive_demo()
+    interactive_demo()  # This now includes the chat interface directly
     sidebar_resources()
     feedback_section()
     footer()
