@@ -1,5 +1,5 @@
 import streamlit as st
-from ..llms.llm_factory import LLMFactory
+from llms.llm_factory import LLMFactory
 
 def main():
     st.title("Anthropic LLM Demo")
