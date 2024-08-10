@@ -1,27 +1,23 @@
+from typing import Optional
 from .anthropic import AnthropicLLM
-# ... other imports ...
 
 class LLMFactory:
     @staticmethod
     def create_llm(llm_type: str, model: Optional[str] = None):
-        """
-        Create and return an instance of the specified LLM.
-
-        :param llm_type: The type of LLM to create ("anthropic", "gemini", etc.)
-        :param model: Optional model name to use. If not provided, uses the default for the LLM type.
-        :return: An instance of the specified LLM.
-        """
         if llm_type == "anthropic":
-            return AnthropicLLM(model) if model else AnthropicLLM()
-        # ... other LLM types ...
+            if model not in ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"]:
+                model = "claude-3-opus-20240229"  # Default to opus if not specified or invalid
+            return AnthropicLLM(model)
         else:
             raise ValueError(f"Unsupported LLM type: {llm_type}")
 
     @staticmethod
     def get_available_llms():
-        """
-        Return a list of available LLM types.
+        return ["anthropic"]  # Add other LLM types as you implement them
 
-        :return: A list of strings representing available LLM types.
-        """
-        return ["anthropic", "gemini", "llama", "openai"]
+    @staticmethod
+    def get_available_models(llm_type: str):
+        if llm_type == "anthropic":
+            return ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"]
+        else:
+            raise ValueError(f"Unsupported LLM type: {llm_type}")

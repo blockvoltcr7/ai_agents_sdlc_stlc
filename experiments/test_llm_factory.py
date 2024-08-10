@@ -1,15 +1,10 @@
 import sys
 import os
 import streamlit as st
-
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
-
 from llms.llm_factory import LLMFactory
-
-# Print Python path for debugging
-print("Python path:", sys.path)
 
 def main():
     st.title("Anthropic LLM Demo")
@@ -17,7 +12,7 @@ def main():
     llm_type = st.selectbox("Select LLM Type", LLMFactory.get_available_llms())
     
     if llm_type == "anthropic":
-        model = st.selectbox("Select Anthropic Model", ["claude-3-opus-20240229", "claude-3-sonnet-20240229"])
+        model = st.selectbox("Select Anthropic Model", LLMFactory.get_available_models(llm_type))
     else:
         model = None
 
