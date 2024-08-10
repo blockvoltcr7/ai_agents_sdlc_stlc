@@ -69,3 +69,21 @@ class AnthropicLLM(BaseLLM):
                 yield completion.completion
         except Exception as e:
             raise Exception(f"Error in streaming prompt to Anthropic: {str(e)}")
+        
+    def count_tokens(self, text: str) -> int:
+        """
+        Count the number of tokens in the given text.
+
+        :param text: The text to count tokens for.
+        :return: The number of tokens in the text.
+        """
+        # Anthropic doesn't provide a built-in token counter, so we'll use a simple estimation
+        # This is a very rough estimate and should be replaced with a more accurate method
+        return len(text.split())
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        # No need to explicitly close the client for Anthropic
+        pass
