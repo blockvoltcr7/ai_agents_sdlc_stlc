@@ -1,0 +1,30 @@
+.generated-content {
+    background-color: #f0f0f0;
+    border-left: 5px solid #4CAF50;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.stButton>button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.stButton>button:hover {
+    background-color: #45a049;
+}
+
+.stProgress > div > div > div > div {
+    background-color: #4CAF50;
+}
