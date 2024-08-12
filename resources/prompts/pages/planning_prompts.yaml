@@ -1,0 +1,31 @@
+feature_proposal: >
+  Based on this feature idea: {feature_idea}, generate a comprehensive 
+  feature proposal document for a wealth management firm like Edward Jones.
+
+market_analysis: >
+  Conduct a market analysis for a feature similar to: {feature_idea} 
+  in the wealth management industry. Consider these competitors: {competitors}
+
+business_case: >
+  Create a business case for this feature: {feature_idea} for a wealth management firm. 
+  Target audience: {target_audience}. Expected benefits: {expected_benefits}
+
+project_charter: >
+  Create a project charter for developing this feature: {feature_idea} 
+  in a wealth management firm. Objectives: {project_objectives}
+
+product_roadmap: >
+  Create a high-level product roadmap for this feature: {feature_idea} 
+  in a wealth management platform. Timeframe: {timeframe}
+
+stakeholder_analysis: >
+  Perform a stakeholder analysis for this feature project in a wealth management firm. 
+  Stakeholders: {stakeholders}
+
+risk_register: >
+  Create an initial risk register for this feature project in a wealth management context. 
+  Potential risks: {potential_risks}
+
+resource_estimation: >
+  Provide a high-level resource estimation for developing this feature: {feature_idea} 
+  in a wealth management firm. Team size: {team_size}
