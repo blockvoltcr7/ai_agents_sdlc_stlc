@@ -139,6 +139,26 @@ def planning_phase():
     api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
 
 
+    # st.header("Generate All Sections")
+    # if st.button("Generate All Sections Sequentially"):
+    #     with st.spinner("Generating all sections..."):
+    #         sections = [
+    #             ("feature_proposal", "feature_proposal", {"feature_idea": feature_idea}),
+    #             ("market_analysis", "market_analysis", {"feature_idea": feature_idea, "competitors": competitors}),
+    #             ("business_case", "business_case", {"feature_idea": feature_idea, "target_audience": target_audience, "expected_benefits": expected_benefits}),
+    #             ("project_charter", "project_charter", {"feature_idea": feature_idea, "project_objectives": project_objectives}),
+    #             ("product_roadmap", "product_roadmap", {"feature_idea": feature_idea, "timeframe": timeframe}),
+    #             ("stakeholder_analysis", "stakeholder_analysis", {"stakeholders": stakeholders}),
+    #             ("risk_register", "risk_register", {"potential_risks": potential_risks}),
+    #             ("resource_estimation", "resource_estimation", {"feature_idea": feature_idea, "team_size": team_size})
+    #         ]
+            
+    #         for doc_name, prompt_key, kwargs in sections:
+    #             generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, **kwargs)
+    #             st.success(f"{doc_name.replace('_', ' ').title()} generated!")
+        
+    #     st.success("All sections have been generated!")
+
     st.header("1. Feature Ideation")
     feature_idea = st.text_area("Describe your feature idea:", 
                                 value="AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
