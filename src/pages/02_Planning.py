@@ -77,7 +77,7 @@ def sidebar_model_selection():
     logger.info(f"Selected API: {api_choice}, Model: {model}, Temperature: {temperature}, Max Tokens: {max_tokens}, Top P: {top_p}")
     return api_choice, model, temperature, max_tokens, top_p
 
-def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, **kwargs):
+def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, context="individual", **kwargs):
     if prompt_key not in prompts:
         logger.error(f"Prompt '{prompt_key}' not found in loaded prompts.")
         st.error(f"Prompt '{prompt_key}' not found in loaded prompts.")
@@ -93,13 +93,16 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
     st.subheader(f"Generated {doc_name.replace('_', ' ').title()}:")
     st.write(st.session_state.planning_docs[doc_name])
 
+    # Create a unique key for each text area
+    unique_key = f"{doc_name}_suggestions_{prompt_key}_{context}"
+
     user_suggestions = st.text_area(
         f"Suggestions for {doc_name.replace('_', ' ').title()} (optional):",
         height=100,
-        key=f"{doc_name}_suggestions_{prompt_key}"
+        key=unique_key
     )
 
-    if st.button(f"Regenerate {doc_name.replace('_', ' ').title()} with Suggestions"):
+    if st.button(f"Regenerate {doc_name.replace('_', ' ').title()} with Suggestions", key=f"regenerate_{unique_key}"):
         if user_suggestions:
             refined_prompt = f"""
             Original content: {st.session_state.planning_docs[doc_name]}
@@ -173,7 +176,7 @@ def planning_phase():
             ]
             
             for doc_name, prompt_key, kwargs in sections:
-                generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, **kwargs)
+                generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, context="all", **kwargs)
                 st.success(f"{doc_name.replace('_', ' ').title()} generated!")
         
         st.success("All sections have been generated!")
