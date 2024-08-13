@@ -138,6 +138,26 @@ def planning_phase():
     # Add model selection to sidebar
     api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
 
+    # Define all input variables first
+    feature_idea = st.text_area("Describe your feature idea:", 
+                                value="AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
+                                height=150)
+    competitors = st.text_input("List main competitors (comma-separated):", 
+                                value="Charles Schwab, Fidelity Investments, Vanguard, Merrill Lynch")
+    target_audience = st.text_input("Define target audience:", 
+                                    value="High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management")
+    expected_benefits = st.text_area("List expected benefits:", 
+                                     value="Improved portfolio performance, increased client satisfaction, reduced manual workload for financial advisors, competitive edge in personalized wealth management, potential to attract younger tech-savvy clients")
+    project_objectives = st.text_area("Define project objectives:", 
+                                      value="Develop an AI algorithm for personalized portfolio rebalancing, integrate with existing wealth management platform, ensure compliance with financial regulations, create intuitive interfaces for both clients and financial advisors")
+    timeframe = st.selectbox("Select timeframe:", ["3 months", "6 months", "1 year"], index=1)
+    stakeholders = st.text_area("List key stakeholders and their roles:", 
+                                value="CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager")
+    potential_risks = st.text_area("List potential risks:", 
+                                   value="Regulatory compliance issues, data security and privacy concerns, resistance from traditional financial advisors, client trust in AI-driven recommendations, integration challenges with legacy systems, market volatility impacting AI performance")
+    team_size = st.number_input("Estimated team size:", min_value=1, max_value=100, value=10)
+
+    # Now add the "Generate All Sections" button and its logic
     st.header("Generate All Sections")
     if st.button("Generate All Sections Sequentially"):
         with st.spinner("Generating all sections..."):
@@ -158,58 +178,44 @@ def planning_phase():
         
         st.success("All sections have been generated!")
 
+    # Keep the rest of your code for individual section generation as it is
     st.header("1. Feature Ideation")
-    feature_idea = st.text_area("Describe your feature idea:", 
-                                value="AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
-                                height=150)
     if st.button("Generate Feature Proposal") or "feature_proposal" in st.session_state.planning_docs:
         generate_and_display("feature_proposal", "feature_proposal", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea)
 
     st.header("2. Market Research")
-    competitors = st.text_input("List main competitors (comma-separated):", 
-                                value="Charles Schwab, Fidelity Investments, Vanguard, Merrill Lynch")
     if st.button("Conduct Market Analysis") or "market_analysis" in st.session_state.planning_docs:
         generate_and_display("market_analysis", "market_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, competitors=competitors)
 
     st.header("3. Business Case Development")
-    target_audience = st.text_input("Define target audience:", 
-                                    value="High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management")
-    expected_benefits = st.text_area("List expected benefits:", 
-                                     value="Improved portfolio performance, increased client satisfaction, reduced manual workload for financial advisors, competitive edge in personalized wealth management, potential to attract younger tech-savvy clients")
     if st.button("Generate Business Case") or "business_case" in st.session_state.planning_docs:
         generate_and_display("business_case", "business_case", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, target_audience=target_audience, expected_benefits=expected_benefits)
 
     st.header("4. Project Charter")
-    project_objectives = st.text_area("Define project objectives:", 
-                                      value="Develop an AI algorithm for personalized portfolio rebalancing, integrate with existing wealth management platform, ensure compliance with financial regulations, create intuitive interfaces for both clients and financial advisors")
     if st.button("Create Project Charter") or "project_charter" in st.session_state.planning_docs:
         generate_and_display("project_charter", "project_charter", prompts, api_choice, model, temperature, max_tokens, top_p, 
                              feature_idea=feature_idea, 
                              project_objectives=project_objectives)  
 
     st.header("5. High-level Product Roadmap")
-    timeframe = st.selectbox("Select timeframe:", ["3 months", "6 months", "1 year"], index=1)
     if st.button("Generate Product Roadmap") or "product_roadmap" in st.session_state.planning_docs:
         generate_and_display("product_roadmap", "product_roadmap", prompts, api_choice, model, temperature, max_tokens, top_p, 
                              feature_idea=feature_idea, 
                              timeframe=timeframe)
         
     st.header("6. Stakeholder Analysis")
-    stakeholders = st.text_area("List key stakeholders and their roles:", 
-                                value="CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager")
     if st.button("Perform Stakeholder Analysis") or "stakeholder_analysis" in st.session_state.planning_docs:
         generate_and_display("stakeholder_analysis", "stakeholder_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, 
                              stakeholders=stakeholders)
+
     st.header("7. Initial Risk Assessment")
-    potential_risks = st.text_area("List potential risks:", 
-                                   value="Regulatory compliance issues, data security and privacy concerns, resistance from traditional financial advisors, client trust in AI-driven recommendations, integration challenges with legacy systems, market volatility impacting AI performance")
     if st.button("Generate Risk Register") or "risk_register" in st.session_state.planning_docs:
         generate_and_display("risk_register", "risk_register", prompts, api_choice, model, temperature, max_tokens, top_p, 
                              potential_risks=potential_risks)
+
     st.header("8. Resource Estimation")
-    team_size = st.number_input("Estimated team size:", min_value=1, max_value=100, value=10)
     if st.button("Estimate Resources") or "resource_estimation" in st.session_state.planning_docs:
-        generate_and_display("resource_estimation", "resource_estimation", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=potential_risks,team_size=team_size)
+        generate_and_display("resource_estimation", "resource_estimation", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, team_size=team_size)
 
     st.header("Review and Finalize")
     if st.button("Review All Documents"):
