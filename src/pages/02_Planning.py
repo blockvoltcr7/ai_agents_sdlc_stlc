@@ -96,7 +96,7 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
     user_suggestions = st.text_area(
         f"Suggestions for {doc_name.replace('_', ' ').title()} (optional):",
         height=100,
-        key=f"{doc_name}_suggestions"
+        key=f"{doc_name}_suggestions_{prompt_key}"
     )
 
     if st.button(f"Regenerate {doc_name.replace('_', ' ').title()} with Suggestions"):
