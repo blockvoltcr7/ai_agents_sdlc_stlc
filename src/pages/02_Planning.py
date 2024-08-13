@@ -137,6 +137,7 @@ def planning_phase():
         return
 
     init_session_state("planning_docs", {})
+    init_session_state("all_sections_generated", False)
 
     # Add model selection to sidebar
     api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
@@ -179,46 +180,48 @@ def planning_phase():
                 generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, context="all", **kwargs)
                 st.success(f"{doc_name.replace('_', ' ').title()} generated!")
         
+        st.session_state.all_sections_generated = True
         st.success("All sections have been generated!")
 
-    # Keep the rest of your code for individual section generation as it is
-    st.header("1. Feature Ideation")
-    if st.button("Generate Feature Proposal") or "feature_proposal" in st.session_state.planning_docs:
-        generate_and_display("feature_proposal", "feature_proposal", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea)
+    # Only show individual section buttons if all sections haven't been generated
+    if not st.session_state.all_sections_generated:
+        st.header("1. Feature Ideation")
+        if st.button("Generate Feature Proposal") or "feature_proposal" in st.session_state.planning_docs:
+            generate_and_display("feature_proposal", "feature_proposal", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea)
 
-    st.header("2. Market Research")
-    if st.button("Conduct Market Analysis") or "market_analysis" in st.session_state.planning_docs:
-        generate_and_display("market_analysis", "market_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, competitors=competitors)
+        st.header("2. Market Research")
+        if st.button("Conduct Market Analysis") or "market_analysis" in st.session_state.planning_docs:
+            generate_and_display("market_analysis", "market_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, competitors=competitors)
 
-    st.header("3. Business Case Development")
-    if st.button("Generate Business Case") or "business_case" in st.session_state.planning_docs:
-        generate_and_display("business_case", "business_case", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, target_audience=target_audience, expected_benefits=expected_benefits)
+        st.header("3. Business Case Development")
+        if st.button("Generate Business Case") or "business_case" in st.session_state.planning_docs:
+            generate_and_display("business_case", "business_case", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, target_audience=target_audience, expected_benefits=expected_benefits)
 
-    st.header("4. Project Charter")
-    if st.button("Create Project Charter") or "project_charter" in st.session_state.planning_docs:
-        generate_and_display("project_charter", "project_charter", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                             feature_idea=feature_idea, 
-                             project_objectives=project_objectives)  
+        st.header("4. Project Charter")
+        if st.button("Create Project Charter") or "project_charter" in st.session_state.planning_docs:
+            generate_and_display("project_charter", "project_charter", prompts, api_choice, model, temperature, max_tokens, top_p, 
+                                 feature_idea=feature_idea, 
+                                 project_objectives=project_objectives)  
 
-    st.header("5. High-level Product Roadmap")
-    if st.button("Generate Product Roadmap") or "product_roadmap" in st.session_state.planning_docs:
-        generate_and_display("product_roadmap", "product_roadmap", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                             feature_idea=feature_idea, 
-                             timeframe=timeframe)
-        
-    st.header("6. Stakeholder Analysis")
-    if st.button("Perform Stakeholder Analysis") or "stakeholder_analysis" in st.session_state.planning_docs:
-        generate_and_display("stakeholder_analysis", "stakeholder_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                             stakeholders=stakeholders)
+        st.header("5. High-level Product Roadmap")
+        if st.button("Generate Product Roadmap") or "product_roadmap" in st.session_state.planning_docs:
+            generate_and_display("product_roadmap", "product_roadmap", prompts, api_choice, model, temperature, max_tokens, top_p, 
+                                 feature_idea=feature_idea, 
+                                 timeframe=timeframe)
+            
+        st.header("6. Stakeholder Analysis")
+        if st.button("Perform Stakeholder Analysis") or "stakeholder_analysis" in st.session_state.planning_docs:
+            generate_and_display("stakeholder_analysis", "stakeholder_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, 
+                                 stakeholders=stakeholders)
 
-    st.header("7. Initial Risk Assessment")
-    if st.button("Generate Risk Register") or "risk_register" in st.session_state.planning_docs:
-        generate_and_display("risk_register", "risk_register", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                             potential_risks=potential_risks)
+        st.header("7. Initial Risk Assessment")
+        if st.button("Generate Risk Register") or "risk_register" in st.session_state.planning_docs:
+            generate_and_display("risk_register", "risk_register", prompts, api_choice, model, temperature, max_tokens, top_p, 
+                                 potential_risks=potential_risks)
 
-    st.header("8. Resource Estimation")
-    if st.button("Estimate Resources") or "resource_estimation" in st.session_state.planning_docs:
-        generate_and_display("resource_estimation", "resource_estimation", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, team_size=team_size)
+        st.header("8. Resource Estimation")
+        if st.button("Estimate Resources") or "resource_estimation" in st.session_state.planning_docs:
+            generate_and_display("resource_estimation", "resource_estimation", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, team_size=team_size)
 
     st.header("Review and Finalize")
     if st.button("Review All Documents"):
@@ -230,6 +233,12 @@ def planning_phase():
     if st.button("Finalize Planning Phase"):
         logger.info("Planning phase completed. All documents have been saved.")
         st.success("Planning phase completed! All documents have been saved.")
+
+    # Add a button to reset the process
+    if st.button("Reset Planning Phase"):
+        st.session_state.planning_docs = {}
+        st.session_state.all_sections_generated = False
+        st.rerun()
 
 def main():
     logger.info("Starting the Planning Phase application")
