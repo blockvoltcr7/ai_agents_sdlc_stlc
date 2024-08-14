@@ -13,13 +13,13 @@ This codebase showcases how AI can bring value to the Software Development Life 
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/blockvoltcr7/ai_agents_sdlc_stlc.git
    cd yourproject
    ```
 
 2. **Create a Virtual Environment**:
    ```bash
-   python -m venv venv
+   python3 -m venv venv
    ```
 
 3. **Activate the Virtual Environment**:
@@ -40,8 +40,12 @@ This codebase showcases how AI can bring value to the Software Development Life 
 5. **Add Environment Variables**:
    Create a `.env` file in the root directory of the project and add your API keys and secrets in the following format:
    ```
-   API_KEY=your_api_key
-   SECRET_KEY=your_secret_key
+    OPENAI_API_KEY= <REQUIRED>
+    ANTHROPIC_API_KEY= <REQUIRED>
+    TOGETHER_API_KEY= <REQUIRED>
+    ERASER_IO_API_KEY= <REQUIRED>
+    GROK_API_KEY= <REQUIRED>
+    GEMINI_API_KEY= <REQUIRED>
    ```
 
 ### Usage
