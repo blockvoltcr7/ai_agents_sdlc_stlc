@@ -1,0 +1,65 @@
+functional_requirements:
+  prompt: >
+    Based on the following context from the planning phase:
+    {context}
+
+    Generate a list of 5-7 functional requirements for the {feature_name} feature.
+    Functional requirements describe specific behaviors or functions of the system.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Focus on what the system should do, not how it should do it.
+
+non_functional_requirements:
+  prompt: >
+    Given the planning context:
+    {context}
+
+    Create a list of 5-7 non-functional requirements for the {feature_name} feature.
+    Non-functional requirements specify criteria for judging the operation of a system, rather than specific behaviors.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Consider aspects such as performance, security, reliability, scalability, and usability.
+
+technical_requirements:
+  prompt: >
+    Considering the planning phase information:
+    {context}
+
+    Develop a list of 5-7 technical requirements for the {feature_name} feature.
+    Technical requirements define the technical aspects and constraints of the system.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Focus on technologies, frameworks, integrations, and technical standards to be used.
+
+user_interface_requirements:
+  prompt: >
+    Based on the planning context:
+    {context}
+
+    Generate a list of 5-7 user interface requirements for the {feature_name} feature.
+    UI requirements specify how the user will interact with the system and its visual design.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Consider aspects such as layout, responsiveness, accessibility, and user experience.
+
+security_requirements:
+  prompt: >
+    Given the following planning information:
+    {context}
+
+    Create a list of 5-7 security requirements for the {feature_name} feature.
+    Security requirements define how the system will protect data and maintain privacy.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Consider aspects such as authentication, authorization, data encryption, and compliance with security standards.
+
+performance_requirements:
+  prompt: >
+    Considering the planning phase context:
+    {context}
+
+    Develop a list of 5-7 performance requirements for the {feature_name} feature.
+    Performance requirements specify the speed, efficiency, and resource usage of the system.
+    Format each requirement as a bullet point.
+    Ensure the requirements are specific, measurable, achievable, relevant, and time-bound (SMART).
+    Focus on aspects such as response time, throughput, resource utilization, and scalability.

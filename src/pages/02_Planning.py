@@ -32,47 +32,44 @@ def load_prompts(file_path):
 
 def sidebar_model_selection():
     st.sidebar.header("Model Selection")
-    api_choice = st.sidebar.selectbox("Choose API:", ["Groq", "Gemini", "OpenAI", "Claude", "Meta-Llama"])
+    api_choice = st.sidebar.selectbox("Choose API:", ["Groq", "Gemini", "OpenAI", "Claude", "Meta-Llama"], key="api_choice")
  
-    if api_choice == "Groq":
-        model = st.sidebar.selectbox("Choose model:", [
-            "llama-3.1-70b-versatile",
-            "llama-3.1-8b-instant",
-            "llama3-70b-8192",
-            "llama3-8b-8192",
-            "mixtral-8x7b-32768",
-            "gemma-7b-it",
-            "gemma2-9b-it"
-        ])
-    elif api_choice == "Gemini":
-        model = st.sidebar.selectbox("Choose model:", [
-            "gemini-1.5-flash",
-            "gemini-1.5-pro"
-        ])
-    elif api_choice == "OpenAI":
-        model = st.sidebar.selectbox("Choose model:", [
-            "gpt-4o",
-            "gpt-4o-mini",
-            "gpt-4-turbo",
-        ])
-    elif api_choice == "Claude":
-        model = st.sidebar.selectbox("Choose model:", [
-            "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229",
-            "claude-3-haiku-20240307"
-   
-        ])
-    elif api_choice == "Meta-Llama":
-        model = st.sidebar.radio("Choose Meta-Llama Model:", (
-            "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
-            "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
-            "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo"
-        ))
-        
+    model_options = {
+        "Groq": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"],
+        "Gemini": ["gemini-1.5-flash", "gemini-1.5-pro"],
+        "OpenAI": ["gpt-4o", "gpt-4o-mini", "gpt-4-turbo"],
+        "Claude": ["claude-3-opus-20240229", "claude-3-sonnet-20240229", "claude-3-haiku-20240307"],
+        "Meta-Llama": ["meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo", "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo", "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo"]
+    }
+
+    model = st.sidebar.selectbox("Choose model:", model_options[api_choice], key="model")
     
-    temperature = st.sidebar.slider("Temperature:", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
-    max_tokens = st.sidebar.slider("Max Tokens:", min_value=100, max_value=8192, value=1024)
-    top_p = st.sidebar.slider("Top P:", min_value=0.0, max_value=1.0, value=0.95, step=0.01)
+    temperature = st.sidebar.slider(
+        "Temperature:",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.7,
+        step=0.1,
+        key="temperature",
+        help="Controls randomness in the output. Higher values (e.g., 0.8) make the output more random, while lower values (e.g., 0.2) make it more focused and deterministic."
+    )
+    max_tokens = st.sidebar.slider(
+        "Max Tokens:",
+        min_value=100,
+        max_value=8192,
+        value=1024,
+        key="max_tokens",
+        help="The maximum number of tokens to generate in the response. One token is roughly 4 characters for normal English text."
+    )
+    top_p = st.sidebar.slider(
+        "Top P:",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.95,
+        step=0.01,
+        key="top_p",
+        help="An alternative to sampling with temperature, called nucleus sampling. The model considers the results of the tokens with top_p probability mass. 0.1 means only the tokens comprising the top 10% probability mass are considered."
+    )
     
     logger.info(f"Selected API: {api_choice}, Model: {model}, Temperature: {temperature}, Max Tokens: {max_tokens}, Top P: {top_p}")
     return api_choice, model, temperature, max_tokens, top_p
@@ -83,7 +80,7 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
         st.error(f"Prompt '{prompt_key}' not found in loaded prompts.")
         return
     
-    if doc_name not in st.session_state.planning_docs:
+    if doc_name not in st.session_state.planning_docs or st.session_state.regenerate_all:
         initial_prompt = prompts[prompt_key].format(**kwargs)
         logger.info(f"Generating content for {doc_name} using {api_choice} model: {model}")
         response = process_text(initial_prompt, "", api_choice, model, temperature, top_p, max_tokens)
@@ -123,7 +120,6 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
         st.success(f"{doc_name.replace('_', ' ').title()} regenerated with suggestions!")
         st.rerun()
 
-
 def planning_phase():
     st.title("Planning Phase: New Feature Playground")
 
@@ -138,42 +134,62 @@ def planning_phase():
 
     init_session_state("planning_docs", {})
     init_session_state("all_sections_generated", False)
+    init_session_state("regenerate_all", False)
+
+    # Initialize session state for user inputs
+    input_keys = [
+        "feature_idea", "competitors", "target_audience", "expected_benefits",
+        "project_objectives", "timeframe", "stakeholders", "potential_risks", "team_size"
+    ]
+    for key in input_keys:
+        init_session_state(key, "")
 
     # Add model selection to sidebar
     api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
 
-    # Define all input variables first
-    feature_idea = st.text_area("Describe your feature idea:", 
-                                value="AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
-                                height=150)
-    competitors = st.text_input("List main competitors (comma-separated):", 
-                                value="Charles Schwab, Fidelity Investments, Vanguard, Merrill Lynch")
-    target_audience = st.text_input("Define target audience:", 
-                                    value="High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management")
-    expected_benefits = st.text_area("List expected benefits:", 
-                                     value="Improved portfolio performance, increased client satisfaction, reduced manual workload for financial advisors, competitive edge in personalized wealth management, potential to attract younger tech-savvy clients")
-    project_objectives = st.text_area("Define project objectives:", 
-                                      value="Develop an AI algorithm for personalized portfolio rebalancing, integrate with existing wealth management platform, ensure compliance with financial regulations, create intuitive interfaces for both clients and financial advisors")
-    timeframe = st.selectbox("Select timeframe:", ["3 months", "6 months", "1 year"], index=1)
-    stakeholders = st.text_area("List key stakeholders and their roles:", 
-                                value="CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager")
-    potential_risks = st.text_area("List potential risks:", 
-                                   value="Regulatory compliance issues, data security and privacy concerns, resistance from traditional financial advisors, client trust in AI-driven recommendations, integration challenges with legacy systems, market volatility impacting AI performance")
-    team_size = st.number_input("Estimated team size:", min_value=1, max_value=100, value=10)
+    # Define all input variables using session state
+    st.session_state.feature_idea = st.text_area("Describe your feature idea:", 
+                                value=st.session_state.feature_idea or "AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
+                                height=150, key="feature_idea_input")
+    st.session_state.competitors = st.text_input("List main competitors (comma-separated):", 
+                                value=st.session_state.competitors or "Charles Schwab, Fidelity Investments, Vanguard, Merrill Lynch",
+                                key="competitors_input")
+    st.session_state.target_audience = st.text_input("Define target audience:", 
+                                    value=st.session_state.target_audience or "High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management",
+                                    key="target_audience_input")
+    st.session_state.expected_benefits = st.text_area("List expected benefits:", 
+                                     value=st.session_state.expected_benefits or "Improved portfolio performance, increased client satisfaction, reduced manual workload for financial advisors, competitive edge in personalized wealth management, potential to attract younger tech-savvy clients",
+                                     key="expected_benefits_input")
+    st.session_state.project_objectives = st.text_area("Define project objectives:", 
+                                      value=st.session_state.project_objectives or "Develop an AI algorithm for personalized portfolio rebalancing, integrate with existing wealth management platform, ensure compliance with financial regulations, create intuitive interfaces for both clients and financial advisors",
+                                      key="project_objectives_input")
+    st.session_state.timeframe = st.selectbox("Select timeframe:", ["3 months", "6 months", "1 year"], 
+                                              index=["3 months", "6 months", "1 year"].index(st.session_state.timeframe) if st.session_state.timeframe else 1,
+                                              key="timeframe_input")
+    st.session_state.stakeholders = st.text_area("List key stakeholders and their roles:", 
+                                value=st.session_state.stakeholders or "CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager",
+                                key="stakeholders_input")
+    st.session_state.potential_risks = st.text_area("List potential risks:", 
+                                   value=st.session_state.potential_risks or "Regulatory compliance issues, data security and privacy concerns, resistance from traditional financial advisors, client trust in AI-driven recommendations, integration challenges with legacy systems, market volatility impacting AI performance",
+                                   key="potential_risks_input")
+    st.session_state.team_size = st.number_input("Estimated team size:", min_value=1, max_value=100, 
+                                                 value=int(st.session_state.team_size) if st.session_state.team_size else 10,
+                                                 key="team_size_input")
 
     # Now add the "Generate All Sections" button and its logic
     st.header("Generate All Sections")
     if st.button("Generate All Sections Sequentially"):
+        st.session_state.regenerate_all = True
         with st.spinner("Generating all sections..."):
             sections = [
-                ("feature_proposal", "feature_proposal", {"feature_idea": feature_idea}),
-                ("market_analysis", "market_analysis", {"feature_idea": feature_idea, "competitors": competitors}),
-                ("business_case", "business_case", {"feature_idea": feature_idea, "target_audience": target_audience, "expected_benefits": expected_benefits}),
-                ("project_charter", "project_charter", {"feature_idea": feature_idea, "project_objectives": project_objectives}),
-                ("product_roadmap", "product_roadmap", {"feature_idea": feature_idea, "timeframe": timeframe}),
-                ("stakeholder_analysis", "stakeholder_analysis", {"stakeholders": stakeholders}),
-                ("risk_register", "risk_register", {"potential_risks": potential_risks}),
-                ("resource_estimation", "resource_estimation", {"feature_idea": feature_idea, "team_size": team_size})
+                ("feature_proposal", "feature_proposal", {"feature_idea": st.session_state.feature_idea}),
+                ("market_analysis", "market_analysis", {"feature_idea": st.session_state.feature_idea, "competitors": st.session_state.competitors}),
+                ("business_case", "business_case", {"feature_idea": st.session_state.feature_idea, "target_audience": st.session_state.target_audience, "expected_benefits": st.session_state.expected_benefits}),
+                ("project_charter", "project_charter", {"feature_idea": st.session_state.feature_idea, "project_objectives": st.session_state.project_objectives}),
+                ("product_roadmap", "product_roadmap", {"feature_idea": st.session_state.feature_idea, "timeframe": st.session_state.timeframe}),
+                ("stakeholder_analysis", "stakeholder_analysis", {"stakeholders": st.session_state.stakeholders}),
+                ("risk_register", "risk_register", {"potential_risks": st.session_state.potential_risks}),
+                ("resource_estimation", "resource_estimation", {"feature_idea": st.session_state.feature_idea, "team_size": st.session_state.team_size})
             ]
             
             for doc_name, prompt_key, kwargs in sections:
@@ -181,47 +197,27 @@ def planning_phase():
                 st.success(f"{doc_name.replace('_', ' ').title()} generated!")
         
         st.session_state.all_sections_generated = True
+        st.session_state.regenerate_all = False
         st.success("All sections have been generated!")
+        st.rerun()
 
     # Only show individual section buttons if all sections haven't been generated
     if not st.session_state.all_sections_generated:
-        st.header("1. Feature Ideation")
-        if st.button("Generate Feature Proposal") or "feature_proposal" in st.session_state.planning_docs:
-            generate_and_display("feature_proposal", "feature_proposal", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea)
+        sections = [
+            ("1. Feature Ideation", "feature_proposal", "feature_proposal", {"feature_idea": st.session_state.feature_idea}),
+            ("2. Market Research", "market_analysis", "market_analysis", {"feature_idea": st.session_state.feature_idea, "competitors": st.session_state.competitors}),
+            ("3. Business Case Development", "business_case", "business_case", {"feature_idea": st.session_state.feature_idea, "target_audience": st.session_state.target_audience, "expected_benefits": st.session_state.expected_benefits}),
+            ("4. Project Charter", "project_charter", "project_charter", {"feature_idea": st.session_state.feature_idea, "project_objectives": st.session_state.project_objectives}),
+            ("5. High-level Product Roadmap", "product_roadmap", "product_roadmap", {"feature_idea": st.session_state.feature_idea, "timeframe": st.session_state.timeframe}),
+            ("6. Stakeholder Analysis", "stakeholder_analysis", "stakeholder_analysis", {"stakeholders": st.session_state.stakeholders}),
+            ("7. Initial Risk Assessment", "risk_register", "risk_register", {"potential_risks": st.session_state.potential_risks}),
+            ("8. Resource Estimation", "resource_estimation", "resource_estimation", {"feature_idea": st.session_state.feature_idea, "team_size": st.session_state.team_size})
+        ]
 
-        st.header("2. Market Research")
-        if st.button("Conduct Market Analysis") or "market_analysis" in st.session_state.planning_docs:
-            generate_and_display("market_analysis", "market_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, competitors=competitors)
-
-        st.header("3. Business Case Development")
-        if st.button("Generate Business Case") or "business_case" in st.session_state.planning_docs:
-            generate_and_display("business_case", "business_case", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, target_audience=target_audience, expected_benefits=expected_benefits)
-
-        st.header("4. Project Charter")
-        if st.button("Create Project Charter") or "project_charter" in st.session_state.planning_docs:
-            generate_and_display("project_charter", "project_charter", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                                 feature_idea=feature_idea, 
-                                 project_objectives=project_objectives)  
-
-        st.header("5. High-level Product Roadmap")
-        if st.button("Generate Product Roadmap") or "product_roadmap" in st.session_state.planning_docs:
-            generate_and_display("product_roadmap", "product_roadmap", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                                 feature_idea=feature_idea, 
-                                 timeframe=timeframe)
-            
-        st.header("6. Stakeholder Analysis")
-        if st.button("Perform Stakeholder Analysis") or "stakeholder_analysis" in st.session_state.planning_docs:
-            generate_and_display("stakeholder_analysis", "stakeholder_analysis", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                                 stakeholders=stakeholders)
-
-        st.header("7. Initial Risk Assessment")
-        if st.button("Generate Risk Register") or "risk_register" in st.session_state.planning_docs:
-            generate_and_display("risk_register", "risk_register", prompts, api_choice, model, temperature, max_tokens, top_p, 
-                                 potential_risks=potential_risks)
-
-        st.header("8. Resource Estimation")
-        if st.button("Estimate Resources") or "resource_estimation" in st.session_state.planning_docs:
-            generate_and_display("resource_estimation", "resource_estimation", prompts, api_choice, model, temperature, max_tokens, top_p, feature_idea=feature_idea, team_size=team_size)
+        for header, doc_name, prompt_key, kwargs in sections:
+            st.header(header)
+            if st.button(f"Generate {doc_name.replace('_', ' ').title()}") or doc_name in st.session_state.planning_docs:
+                generate_and_display(doc_name, prompt_key, prompts, api_choice, model, temperature, max_tokens, top_p, **kwargs)
 
     st.header("Review and Finalize")
     if st.button("Review All Documents"):
@@ -236,8 +232,8 @@ def planning_phase():
 
     # Add a button to reset the process
     if st.button("Reset Planning Phase"):
-        st.session_state.planning_docs = {}
-        st.session_state.all_sections_generated = False
+        for key in st.session_state.keys():
+            del st.session_state[key]
         st.rerun()
 
 def main():
