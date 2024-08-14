@@ -50,3 +50,6 @@ This codebase showcases how AI can bring value to the Software Development Life 
 
 ### Usage
 To run the application, execute:
+   ```
+    streamlit run welcome.py
+   ```
