@@ -6,6 +6,7 @@ from utils.streamlit_utils import init_session_state
 import utils.prompt_utils as prompt_utils
 from utils.logger import setup_logger
 from dotenv import load_dotenv
+from utils.cloud_arch_diagram_ import generate_cloud_architecture_diagram
 
 # Load environment variables and set up logger
 load_dotenv()
@@ -115,8 +116,49 @@ def regenerate_with_suggestions(design_component, user_suggestions, prompts, api
 def system_architecture():
     st.header("System Architecture Design")
     st.write("This section outlines the overall structure of the system.")
+    
     if st.button("Generate System Architecture"):
-        generate_and_display("system_architecture", prompts, api_choice, model, temperature, max_tokens, top_p, context)
+        with st.spinner("Generating System Architecture..."):
+            # Generate text content
+            generate_and_display("system_architecture", prompts, api_choice, model, temperature, max_tokens, top_p, context)
+            
+            # Generate cloud architecture diagram
+            try:
+                diagram_path = generate_cloud_architecture_diagram(
+                    st.session_state.feature_name,
+                    additional_context=st.session_state.design_docs.get("system_architecture", "")
+                )
+                st.success("Cloud Architecture Diagram generated successfully!")
+                st.image(diagram_path, caption="Cloud Architecture Diagram", use_column_width=True)
+                st.session_state.design_docs["system_architecture_diagram"] = diagram_path
+            except Exception as e:
+                st.error(f"Failed to generate Cloud Architecture Diagram: {str(e)}")
+
+    if "system_architecture" in st.session_state.design_docs:
+        st.subheader("Generated System Architecture Description:")
+        st.write(st.session_state.design_docs["system_architecture"])
+
+    if "system_architecture_diagram" in st.session_state.design_docs:
+        st.subheader("Generated Cloud Architecture Diagram:")
+        st.image(st.session_state.design_docs["system_architecture_diagram"], caption="Cloud Architecture Diagram", use_column_width=True)
+
+    user_suggestions = st.text_area("Suggestions for System Architecture (optional):", height=100)
+
+    if st.button("Regenerate System Architecture with Suggestions"):
+        with st.spinner("Regenerating System Architecture..."):
+            regenerate_with_suggestions("system_architecture", user_suggestions, prompts, api_choice, model, temperature, max_tokens, top_p, context)
+            
+            # Regenerate cloud architecture diagram
+            try:
+                diagram_path = generate_cloud_architecture_diagram(
+                    st.session_state.feature_name,
+                    additional_context=st.session_state.design_docs.get("system_architecture", "")
+                )
+                st.success("Cloud Architecture Diagram regenerated successfully!")
+                st.session_state.design_docs["system_architecture_diagram"] = diagram_path
+                st.image(diagram_path, caption="Regenerated Cloud Architecture Diagram", use_column_width=True)
+            except Exception as e:
+                st.error(f"Failed to regenerate Cloud Architecture Diagram: {str(e)}")
 
 def database_design():
     st.header("Database Design")
