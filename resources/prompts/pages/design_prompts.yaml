@@ -1,0 +1,133 @@
+design_overview:
+  prompt: >
+    Create a design overview for the feature: {feature_name}. 
+    Consider the following planning summary: {planning_summary}
+    And the following requirements summary: {requirements_summary}
+    
+    The overview should include:
+    1. A brief introduction to the design phase
+    2. Key goals and objectives of the design
+    3. How the design aligns with business goals and key user stories
+    4. A high-level summary of the main design components
+    5. Any critical constraints or considerations
+
+system_architecture:
+  prompt: >
+    Design a system architecture for the feature: {feature_name}.
+    
+    Include the following:
+    1. A high-level architecture diagram (describe it textually)
+    2. Key components and their responsibilities
+    3. Integration points with existing systems
+    4. Data flow between components
+    5. At least two alternative architecture options with their trade-offs
+    6. Justification for the recommended architecture
+
+planning_summary:
+  prompt: >
+    Summarize the planning phase for the feature: {feature_name}.
+    
+    Include the following:
+    1. Key objectives and goals of the planning phase
+    2. Major milestones and deliverables
+    3. Stakeholder involvement and their roles
+    4. Identified risks and mitigation strategies
+    5. Any assumptions or constraints considered during planning
+
+database_design:
+  prompt: >
+    Create a database design for the feature: {feature_name}.
+    
+    Include the following:
+    1. An Entity-Relationship Diagram (describe it textually)
+    2. A list of main entities and their attributes
+    3. Key relationships between entities
+    4. Any necessary indexes or constraints
+    5. Considerations for data integrity and performance
+
+user_interface_design:
+  prompt: >
+    Design the user interface for the feature: {feature_name}.
+    
+    Include the following:
+    1. Description of key screens or pages
+    2. User flow diagrams (describe them textually)
+    3. Critical UI components and their functionality
+    4. Accessibility considerations and compliance measures
+    5. Responsive design approach for different devices
+    6. Key user interactions and their expected outcomes
+
+api_design:
+  prompt: >
+    Design the API for the feature: {feature_name}.
+    
+    Include the following:
+    1. List of main API endpoints
+    2. Request and response formats for each endpoint
+    3. Authentication and authorization methods
+    4. Rate limiting strategies
+    5. Error handling and response codes
+    6. API versioning approach
+    7. Any necessary webhooks or callback mechanisms
+
+sequence_diagrams:
+  prompt: >
+    Create sequence diagrams for key processes in the feature: {feature_name}.
+    
+    Describe the following sequence diagrams textually:
+    1. User authentication process
+    2. Main feature workflow
+    3. Data synchronization between components
+    4. Error handling for a critical process
+    5. Any complex interactions between multiple system components
+
+security_design:
+  prompt: >
+    Design the security measures for the feature: {feature_name}.
+    
+    Include the following:
+    1. Security requirements and objectives
+    2. Threat model and risk assessment
+    3. Security controls and mechanisms
+    4. Data protection and privacy considerations
+    5. Compliance with relevant standards and regulations
+    6. Incident response and recovery plan
+
+performance_considerations:
+  prompt: >
+    Outline the performance considerations for the feature: {feature_name}.
+    
+    Include the following:
+    1. Performance requirements and objectives
+    2. Key performance indicators (KPIs)
+    3. Performance optimization techniques
+    4. Load balancing approach
+    5. Database query optimization strategies
+    6. Content delivery network (CDN) usage if applicable
+    7. Load testing strategies and performance benchmarks
+
+testing_strategy:
+  prompt: >
+    Develop a testing strategy for the feature: {feature_name}.
+    
+    Include the following:
+    1. Types of tests to be conducted (unit, integration, system, etc.)
+    2. Test environment setup and configuration
+    3. Key test scenarios and critical test cases
+    4. Approach for performance and load testing
+    5. Security testing methodology
+    6. User acceptance testing (UAT) process
+    7. Continuous integration and continuous deployment (CI/CD) testing approach
+
+design_review:
+  prompt: >
+    Create a design review and approval process for the feature: {feature_name}.
+    
+    Include the following:
+    1. Stakeholder feedback mechanism
+    2. Design validation checklist
+    3. Approval workflow and sign-off process
+    4. Risk assessment methodology
+    5. Change management process for design updates
+    6. Documentation of design decisions and their rationale
+    7. Plan for addressing and incorporating feedback
