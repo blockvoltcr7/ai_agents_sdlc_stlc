@@ -123,6 +123,23 @@ def system_architecture():
             generate_and_display("system_architecture", prompts, api_choice, model, temperature, max_tokens, top_p, context)
             
             # Generate cloud architecture diagram
+            '''
+            before generating the diagram we need to process the text first.
+            we need to extract the text and break it down into components.
+            then we need to call claude anthropic opus (complex task) to break down system architecture in a language
+            that is in the language of the diagram in order for eraser io to understand it.
+            
+            we need to load llama index vector store with the eraser io knowledge base.
+            then we need to feed the system architecture text to the llama index vector store.
+            along with the text we need to ask the llm to create a system cloud architecture
+            using the eraser io language. 
+            
+            get three responses, 1 for each cloud provider (aws, azure, gcp).
+            
+            if this doesnt work then we will use a combination of crewai agents and load them with the expected structure and data to use.
+            the token size will be large there for try to use gemini flash because they can handle a large token size.
+            
+            '''
             try:
                 diagram_path = generate_cloud_architecture_diagram(
                     st.session_state.feature_name,
