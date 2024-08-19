@@ -7,6 +7,7 @@ from utils.streamlit_utils import init_session_state
 import utils.prompt_utils as prompt_utils
 from utils.logger import setup_logger
 from dotenv import load_dotenv
+import pyperclip
 
 # Load environment variables
 load_dotenv()
@@ -32,7 +33,7 @@ def load_prompts(file_path):
 
 def sidebar_model_selection():
     st.sidebar.header("Model Selection")
-    api_choice = st.sidebar.selectbox("Choose API:", ["Groq", "Gemini", "OpenAI", "Claude", "Meta-Llama"], key="api_choice")
+    api_choice = st.sidebar.selectbox("Choose API:", ["Claude", "Gemini", "OpenAI", "Groq", "Meta-Llama"], key="api_choice")
  
     model_options = {
         "Groq": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"],
@@ -88,6 +89,8 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
         logger.info(f"Content generated for {doc_name}")
 
     st.subheader(f"Generated {doc_name.replace('_', ' ').title()}:")
+    
+    # Display the generated content as text
     st.write(st.session_state.planning_docs[doc_name])
 
     # Create a unique key for each text area
@@ -136,45 +139,42 @@ def planning_phase():
     init_session_state("all_sections_generated", False)
     init_session_state("regenerate_all", False)
 
-    # Initialize session state for user inputs
-    input_keys = [
-        "feature_idea", "competitors", "target_audience", "expected_benefits",
-        "project_objectives", "timeframe", "stakeholders", "potential_risks", "team_size"
-    ]
-    for key in input_keys:
-        init_session_state(key, "")
+    # Load values from the YAML file
+    planning_input_data = os.path.join("../resources", "page_auto_inputs", "planning.yaml")
+    with open(planning_input_data, 'r', encoding='utf-8') as file:  # Specify encoding
+        planning_input_data = yaml.safe_load(file)
 
-    # Add model selection to sidebar
-    api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
-
-    # Define all input variables using session state
+    # Initialize session state for user inputs using values from the YAML file
     st.session_state.feature_idea = st.text_area("Describe your feature idea:", 
-                                value=st.session_state.feature_idea or "AI-driven personalized investment portfolio rebalancing for our wealth management platform", 
+                                value=st.session_state.feature_idea or planning_input_data.get('idea', ""), 
                                 height=150, key="feature_idea_input")
     st.session_state.competitors = st.text_input("List main competitors (comma-separated):", 
-                                value=st.session_state.competitors or "Charles Schwab, Fidelity Investments, Vanguard, Merrill Lynch",
+                                value=st.session_state.competitors or planning_input_data.get('competitors', ""),
                                 key="competitors_input")
     st.session_state.target_audience = st.text_input("Define target audience:", 
-                                    value=st.session_state.target_audience or "High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management",
+                                    value=st.session_state.target_audience or planning_input_data.get('target_audience', ""),
                                     key="target_audience_input")
     st.session_state.expected_benefits = st.text_area("List expected benefits:", 
-                                     value=st.session_state.expected_benefits or "Improved portfolio performance, increased client satisfaction, reduced manual workload for financial advisors, competitive edge in personalized wealth management, potential to attract younger tech-savvy clients",
+                                     value=st.session_state.expected_benefits or planning_input_data.get('expected_benefits', ""),
                                      key="expected_benefits_input")
     st.session_state.project_objectives = st.text_area("Define project objectives:", 
-                                      value=st.session_state.project_objectives or "Develop an AI algorithm for personalized portfolio rebalancing, integrate with existing wealth management platform, ensure compliance with financial regulations, create intuitive interfaces for both clients and financial advisors",
+                                      value=st.session_state.project_objectives or planning_input_data.get('project_objectives', ""),
                                       key="project_objectives_input")
     st.session_state.timeframe = st.selectbox("Select timeframe:", ["3 months", "6 months", "1 year"], 
                                               index=["3 months", "6 months", "1 year"].index(st.session_state.timeframe) if st.session_state.timeframe else 1,
                                               key="timeframe_input")
     st.session_state.stakeholders = st.text_area("List key stakeholders and their roles:", 
-                                value=st.session_state.stakeholders or "CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager",
+                                value=st.session_state.stakeholders or planning_input_data.get('stakeholders', ""),
                                 key="stakeholders_input")
     st.session_state.potential_risks = st.text_area("List potential risks:", 
-                                   value=st.session_state.potential_risks or "Regulatory compliance issues, data security and privacy concerns, resistance from traditional financial advisors, client trust in AI-driven recommendations, integration challenges with legacy systems, market volatility impacting AI performance",
+                                   value=st.session_state.potential_risks or planning_input_data.get('potential_risks', ""),
                                    key="potential_risks_input")
     st.session_state.team_size = st.number_input("Estimated team size:", min_value=1, max_value=100, 
                                                  value=int(st.session_state.team_size) if st.session_state.team_size else 10,
                                                  key="team_size_input")
+
+    # Add model selection to sidebar
+    api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
 
     # Now add the "Generate All Sections" button and its logic
     st.header("Generate All Sections")
@@ -221,10 +221,17 @@ def planning_phase():
 
     st.header("Review and Finalize")
     if st.button("Review All Documents"):
+        full_content = ""
         for doc_name, content in st.session_state.planning_docs.items():
             st.subheader(doc_name.replace("_", " ").title())
             st.write(content)
+            full_content += f"\n\n{doc_name.replace('_', ' ').title()}:\n{content}"
             st.markdown("---")
+        
+        # Add a single "Copy to Clipboard" button for all documents
+        if st.button("Copy All to Clipboard"):
+            pyperclip.copy(full_content)
+            st.success("All documents copied to clipboard!")
 
     if st.button("Finalize Planning Phase"):
         logger.info("Planning phase completed. All documents have been saved.")

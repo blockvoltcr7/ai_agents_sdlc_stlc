@@ -4,7 +4,7 @@ from utils.streamlit_utils import init_session_state
 
 def chat_interface(system_message, initial_prompt=""):
     # Add model selection to sidebar
-    api_choice = st.sidebar.selectbox("Choose API:", ["Groq", "Gemini", "OpenAI", "Claude", "Meta-Llama"])
+    api_choice = st.sidebar.selectbox("Choose API:", ["Claude", "Gemini", "OpenAI", "Groq", "Meta-Llama"])
     
     if api_choice == "Groq":
         model = st.sidebar.selectbox("Choose model:", ["llama3-70b-8192", "mixtral-8x7b-32768"])
