@@ -1,31 +1,486 @@
 feature_proposal: >
-  Based on this feature idea: {feature_idea}, generate a comprehensive 
-  feature proposal document for a wealth management firm like Edward Jones.
+  You are an expert business analyst for a financial wealth management company. Your task is to generate a comprehensive feature proposal document based on a given feature idea. The document should be detailed, professional, and tailored to the needs of a financial wealth management company.
+
+  Here is the feature idea you will be working with:
+
+  <feature_idea>
+  {feature_idea}
+  </feature_idea>
+
+  Using this feature idea, create a detailed feature proposal document. Follow these guidelines:
+
+  1. Begin with a title "Feature Proposal Document" followed by a concise title for the proposed feature.
+
+  2. Include the following sections in your document:
+     - Executive Summary
+     - Objectives
+     - Key Features
+     - Technical Specifications
+     - Implementation Plan
+     - Benefits
+     - Conclusion
+     - Appendices (if necessary)
+
+  3. In the Executive Summary, provide a brief overview of the feature, its purpose, and its potential impact on the company and its clients.
+
+  4. For Objectives, list 3-5 clear, measurable goals that the feature aims to achieve.
+
+  5. In Key Features, break down the main components of the feature, explaining each in detail.
+
+  6. Technical Specifications should outline the proposed technology stack, integration requirements, and any specific technical considerations.
+
+  7. The Implementation Plan should provide a high-level timeline and major milestones for the feature development and deployment.
+
+  8. In the Benefits section, clearly articulate the advantages for both the company and its clients.
+
+  9. The Conclusion should summarize the key points and reaffirm the value of implementing this feature.
+
+  10. If necessary, include Appendices for any additional technical details, glossary of terms, or references.
+
+  11. Use professional language throughout the document, avoiding jargon unless it's industry-standard terminology.
+
+  12. Format the document with clear headings, subheadings, and bullet points where appropriate to enhance readability.
+
+  13. Ensure that all aspects of the feature idea are addressed in the document, expanding on the initial concept where necessary.
+
+  14. If any aspects of the feature idea are unclear or seem incomplete, use your expertise to make reasonable assumptions and note them in the document.
+
+  Present your entire feature proposal document within <feature_proposal> tags. Ensure the document is well-structured, comprehensive, and ready for presentation to stakeholders in a financial wealth management company.
 
 market_analysis: >
-  Conduct a market analysis for a feature similar to: {feature_idea} 
-  in the wealth management industry. Consider these competitors: {competitors}
+  You are an expert business analyst for a financial wealth management company. Your task is to generate a comprehensive market analysis document based on a proposed feature idea and a list of competitors. Follow these instructions carefully to create your analysis:
+
+  First, review the feature idea:
+  <feature_idea>
+  {feature_idea}
+  </feature_idea>
+
+  Next, consider the list of competitors:
+  <competitors>
+  {competitors}
+  </competitors>
+
+  Now, create a market analysis document with the following structure:
+
+  1. Market Overview
+  2. Competitive Landscape
+  3. Market Needs and Trends
+  4. Target Audience
+  5. Value Proposition of the Feature Idea
+  6. SWOT Analysis
+  7. Strategic Recommendations
+  8. Conclusion
+
+  For each section, follow these guidelines:
+
+  1. Market Overview:
+     - Provide a brief overview of the wealth management industry
+     - Highlight current trends and challenges
+     - Explain how the feature idea fits into the market
+
+  2. Competitive Landscape:
+     - Analyze each competitor listed in the {competitors} input
+     - For each competitor, provide:
+       - Key offerings
+       - Strengths
+       - Weaknesses
+
+  3. Market Needs and Trends:
+     - Identify 4-5 key needs or trends in the wealth management industry
+     - Explain how these relate to the feature idea
+
+  4. Target Audience:
+     - Define 2-3 primary target audience segments for the feature
+     - Describe their characteristics and needs
+
+  5. Value Proposition of the Feature Idea:
+     - Clearly articulate the unique value proposition of the feature
+     - Explain how it addresses market needs and differentiates from competitors
+
+  6. SWOT Analysis:
+     - Conduct a SWOT analysis for the feature idea:
+       - Strengths (3-4 points)
+       - Weaknesses (2-3 points)
+       - Opportunities (3-4 points)
+       - Threats (2-3 points)
+
+  7. Strategic Recommendations:
+     - Provide 4-5 actionable recommendations for implementing and marketing the feature
+     - Ensure recommendations are specific and relevant to the wealth management industry
+
+  8. Conclusion:
+     - Summarize the key points of the analysis
+     - Reinforce the potential impact of the feature idea on the market
+
+  Format your output as follows:
+  - Use Markdown formatting for headings and subheadings
+  - Use bullet points for lists
+  - Ensure proper indentation and spacing for readability
+
+  Begin your analysis with the title "# Market Analysis" and include all sections as second-level headings (##).
+
+  Maintain a professional, analytical tone throughout the document. Base your analysis on the provided feature idea and competitors, but feel free to make reasonable assumptions about the market and industry trends where necessary.
+
+  Provide your complete market analysis document within <analysis> tags.
 
 business_case: >
-  Create a business case for this feature: {feature_idea} for a wealth management firm. 
-  Target audience: {target_audience}. Expected benefits: {expected_benefits}
+  You are tasked with creating a comprehensive business case document for a proposed feature idea. This document will help stakeholders understand the value and potential impact of implementing the feature. Follow these instructions carefully to generate a well-structured and informative business case.
+
+  You will be provided with two input variables:
+  <feature_idea>
+  {feature_idea}
+  </feature_idea>
+
+  <expected_benefits>
+  {expected_benefits}
+  </expected_benefits>
+
+  Using these inputs, create a detailed business case document with the following structure:
+
+  1. Business Case Title
+  2. Feature Description
+  3. Target Audience
+  4. Executive Summary
+  5. Objectives
+  6. Benefits (detailed explanation of each benefit)
+  7. Implementation Plan
+  8. Financial Considerations
+  9. Conclusion
+
+  Follow these steps to create the business case:
+
+  1. Start with a clear and concise title for the business case, incorporating the main idea of the feature.
+
+  2. Provide a brief description of the feature based on the feature_idea input.
+
+  3. Identify and list the target audience based on the information provided in the feature_idea and expected_benefits.
+
+  4. Write an executive summary that outlines the key points of the business case, including the feature's purpose, main benefits, and expected impact.
+
+  5. List the main objectives of implementing this feature. These should be specific, measurable, achievable, relevant, and time-bound (SMART) goals.
+
+  6. Expand on the expected_benefits input to create a detailed list of benefits. For each benefit:
+     a. Provide a clear heading
+     b. Offer a detailed explanation of how the feature will deliver this benefit
+     c. If possible, include potential metrics or KPIs to measure the benefit's success
+
+  7. Outline an implementation plan that includes key stages such as:
+     - Requirement gathering and analysis
+     - Development
+     - Testing
+     - Integration
+     - Training
+     - Deployment
+     - Monitoring and maintenance
+
+  8. Discuss financial considerations, including:
+     - Estimated development costs
+     - Ongoing maintenance costs
+     - Potential ROI or financial benefits
+
+  9. Conclude the business case by summarizing the key points and reinforcing the value of implementing the feature.
+
+  Format your output using markdown syntax for better readability. Use appropriate headings, bullet points, and emphasis where necessary.
+
+  Here's an example of how your output should be structured:
+
+  ```markdown
+  # Business Case: [Title]
+
+  ## Feature Description
+  [Brief description based on feature_idea]
+
+  ## Target Audience
+  - [Audience 1]
+  - [Audience 2]
+  - [Audience 3]
+
+  ## Executive Summary
+  [Concise summary of the business case]
+
+  ## Objectives
+  - [Objective 1]
+  - [Objective 2]
+  - [Objective 3]
+
+  ## Benefits
+
+  ### [Benefit 1]
+  [Detailed explanation of benefit 1]
+
+  ### [Benefit 2]
+  [Detailed explanation of benefit 2]
+
+  [Continue with other benefits...]
+
+  ## Implementation Plan
+  1. [Stage 1]
+  2. [Stage 2]
+  3. [Stage 3]
+  [Continue with other stages...]
+
+  ## Financial Considerations
+  - [Consideration 1]
+  - [Consideration 2]
+  - [Consideration 3]
+
+  ## Conclusion
+  [Summary of key points and reinforcement of the feature's value]
 
 project_charter: >
-  Create a project charter for developing this feature: {feature_idea} 
-  in a wealth management firm. Objectives: {project_objectives}
+  You are tasked with creating a comprehensive Project Charter based on a given feature idea and project objectives. The Project Charter will serve as a foundational document for the project, outlining its purpose, scope, objectives, and other crucial elements.
+
+  Here are the inputs you will be working with:
+
+  <feature_idea>
+  {feature_idea}
+  </feature_idea>
+
+  <project_objectives>
+  {project_objectives}
+  </project_objectives>
+
+  Using these inputs, you will create a Project Charter with the following structure:
+
+  1. **Project Title**: Create a concise title that reflects the feature idea.
+
+  2. **Project Sponsor, Project Manager, Start Date, End Date**: Use placeholder text for these fields, e.g., [Project Sponsor Name], [Start Date].
+
+  3. **Project Background**: Write a brief paragraph explaining the context and need for the project based on the feature idea.
+
+  4. **Project Objectives**: List the objectives provided in the project_objectives input. If there are more than 10 objectives, summarize or combine similar ones to keep the list concise.
+
+  5. **Project Scope**: 
+     - **In Scope**: List items directly related to achieving the project objectives.
+     - **Out of Scope**: Identify 2-3 items that are not part of the project but might be assumed to be.
+
+  6. **Key Stakeholders**: Identify 4-6 key stakeholder groups or roles relevant to the project.
+
+  7. **Deliverables**: Create a list of 5-8 concrete deliverables based on the project objectives.
+
+  8. **Assumptions**: List 3-5 assumptions that are being made about the project.
+
+  9. **Constraints**: Identify 2-3 constraints that may affect the project.
+
+  10. **Risks**: List 4-6 potential risks that could impact the project's success.
+
+  11. **Approval Section**: Create a table with columns for Name, Role, Signature, and Date. Include rows for key roles like Project Sponsor, Project Manager, etc.
+
+  12. **Project Sign-off**: Write a brief paragraph formally authorizing the project and explaining the purpose of the charter.
+
+  Format the Project Charter using Markdown syntax. Use appropriate headers, bullet points, and tables where necessary. Ensure that the document is well-structured and easy to read.
+
+  Present your complete Project Charter within <project_charter> tags.
 
 product_roadmap: >
-  Create a high-level product roadmap for this feature: {feature_idea} 
-  in a wealth management platform. Timeframe: {timeframe}
+  You are a product manager tasked with creating a detailed product roadmap for a new feature idea. Your goal is to generate a comprehensive document that outlines the development and implementation process for the given feature over the specified timeframe.
+
+  You will be provided with two inputs:
+  <feature_idea>
+  {feature_idea}
+  </feature_idea>
+
+  <timeframe>
+  {timeframe}
+  </timeframe>
+
+  Follow these instructions to create the product roadmap:
+
+  1. Begin with a title "Product Roadmap" followed by a brief description of the feature idea.
+
+  2. Divide the timeframe into appropriate phases or milestones. For shorter timeframes (1-3 months), use weeks as the main unit. For longer timeframes (4+ months), use months as the main unit.
+
+  3. For each phase or milestone, create subsections that cover the following aspects of development:
+     - Planning and requirements gathering
+     - Design and architecture
+     - Development
+     - Testing and quality assurance
+     - Deployment and monitoring
+     - Post-deployment support and optimization
+
+  4. Under each subsection, list specific tasks, activities, or goals to be accomplished. Be as detailed and specific as possible, considering the nature of the feature idea.
+
+  5. Allocate time for each task or activity based on its complexity and importance. Ensure that the total time allocated matches the given timeframe.
+
+  6. Include cross-functional considerations, such as coordination between development, design, and marketing teams, where applicable.
+
+  7. Add any necessary assumptions or dependencies that may affect the roadmap.
+
+  8. Conclude with a brief section on "Ongoing Maintenance & Support" to address long-term considerations.
+
+  Format your output as a structured Markdown document, using appropriate headings (##, ###, ####) for different levels of detail. Use bullet points (-) for individual tasks or activities.
+
+  Here's an example of how to structure a small section of your output:
 
 stakeholder_analysis: >
-  Perform a stakeholder analysis for this feature project in a wealth management firm. 
-  Stakeholders: {stakeholders}
+  You are tasked with creating a comprehensive stakeholder analysis document. This document will help identify and analyze key stakeholders involved in a project or initiative. Follow these instructions carefully to generate the analysis:
+
+  1. Begin by processing the list of stakeholders provided in the {{stakeholders}} input. This list contains the roles of various individuals or groups involved in the project.
+
+  2. Create a detailed stakeholder analysis document with the following structure:
+
+  <stakeholder_analysis>
+  <header>Stakeholder Analysis</header>
+
+  <overview>
+  Provide a brief introduction explaining the purpose of the stakeholder analysis and its importance for the project. Mention that the analysis covers a {{timeframe}} period.
+  </overview>
+
+  <stakeholder_details>
+  For each stakeholder in the {{stakeholders}} list, create a section with the following information:
+  - Role/Title: The stakeholder's position or role
+  - Interest: Assess their level of interest in the project (High, Medium, or Low)
+  - Influence: Evaluate their level of influence on the project (High, Medium, or Low)
+  - Key Responsibilities: List 2-3 main responsibilities or contributions of this stakeholder
+  - Engagement Strategy: Suggest how to best engage with this stakeholder throughout the {{timeframe}}
+  </stakeholder_details>
+
+  <summary_table>
+  Create a table summarizing all stakeholders, including columns for Role/Title, Interest, Influence, Key Responsibilities, and Engagement Strategy.
+  </summary_table>
+
+  <time_considerations>
+  Discuss how the {{timeframe}} might affect stakeholder involvement, priorities, or the overall project dynamics.
+  </time_considerations>
+
+  <conclusion>
+  Summarize the key findings from the stakeholder analysis and provide recommendations for effective stakeholder management throughout the {{timeframe}}.
+  </conclusion>
+  </stakeholder_analysis>
+
+  3. Use professional language and maintain a consistent tone throughout the document.
+
+  4. Ensure that your analysis is balanced, considering both the potential positive contributions and challenges associated with each stakeholder.
+
+  5. If the {{stakeholders}} list contains more than 10 stakeholders, focus on the top 10 most influential or critical stakeholders for a more concise analysis.
+
+  6. Use bullet points, subheadings, and tables to improve readability and organization of the document.
+
+  7. Provide your complete stakeholder analysis document within the <stakeholder_analysis> tags, following the structure outlined above.
 
 risk_register: >
-  Create an initial risk register for this feature project in a wealth management context. 
-  Potential risks: {potential_risks}
+  You are tasked with creating a comprehensive risk register document based on a list of potential risks provided by the user. The purpose of this document is to identify, assess, and plan for potential risks in a project or organization.
+
+  First, carefully read and analyze the list of potential risks provided in the {{potential_risks}} input. Each risk should be treated as a separate entry in the risk register.
+
+  For each risk, create an entry in the risk register with the following structure:
+
+  1. Risk Title: A brief, descriptive title for the risk
+  2. Description: The full description of the risk as provided in the input
+  3. Impact: Assess the potential impact as High, Medium, or Low
+  4. Likelihood: Assess the likelihood of occurrence as High, Medium, or Low
+  5. Mitigation Strategies: Develop 2-3 strategies to mitigate or manage the risk
+  6. Owner: Assign a team or role responsible for managing this risk
+
+  When assessing impact and likelihood, use your best judgment based on the description provided. Consider the potential consequences and the context of the risk.
+
+  For mitigation strategies, think creatively about ways to prevent, reduce, or manage the risk. These should be actionable and relevant to the specific risk.
+
+  Format your output as follows:
+
+  <risk_register>
+  <risk>
+  <title>[Risk Title]</title>
+  <description>[Full risk description]</description>
+  <impact>[High/Medium/Low]</impact>
+  <likelihood>[High/Medium/Low]</likelihood>
+  <mitigation_strategies>
+  - [Strategy 1]
+  - [Strategy 2]
+  - [Strategy 3]
+  </mitigation_strategies>
+  <owner>[Responsible team or role]</owner>
+  </risk>
+  </risk_register>
+
+  Here's an example of a properly formatted risk entry:
+
+  <risk>
+  <title>Data Security Vulnerability</title>
+  <description>Risk of unauthorized access to sensitive client portfolio information during transmission or storage.</description>
+  <impact>High</impact>
+  <likelihood>Medium</likelihood>
+  <mitigation_strategies>
+  - Implement end-to-end encryption for all data transmissions
+  - Conduct regular security audits and penetration testing
+  - Establish strict access controls and monitoring systems
+  </mitigation_strategies>
+  <owner>Information Security Team</owner>
+  </risk>
+
+  Process all risks provided in the {{potential_risks}} input and create a comprehensive risk register document using this format. Begin your response with a brief introduction to the risk register, and conclude with a summary of the total number of risks identified and any overarching themes or areas of concern.
 
 resource_estimation: >
-  Provide a high-level resource estimation for developing this feature: {feature_idea} 
-  in a wealth management firm. Team size: {team_size}
+  # Resource Estimation for [Brief Feature Description]
+
+  ## Project Overview
+  [Provide 2-3 sentences summarizing the feature idea, highlighting its main purpose and any unique aspects.]
+
+  ## Team Size and Composition
+  - **Total Team Size:** {{team_size}}
+  - **Roles:**
+    - Project Manager: 1
+    - Developers: [Number of Developers]
+    - QA Engineers: [Number of QA Engineers]
+    - UX/UI Designer: [If applicable]
+    - DevOps Engineer: [If applicable]
+
+  ## Project Phases and Estimated Durations
+  1. **Requirements Gathering**
+     - Estimated Duration: [Number of Weeks/Days]
+     - Activities: Meetings with stakeholders, drafting specifications, reviewing existing documentation.
+
+  2. **Design**
+     - Estimated Duration: [Number of Weeks/Days]
+     - Activities: Wireframing, creating architecture diagrams, UI/UX design.
+
+  3. **Development**
+     - Estimated Duration: [Number of Weeks/Days]
+     - Activities: Coding, code reviews, implementation of core features.
+
+  4. **Testing**
+     - Estimated Duration: [Number of Weeks/Days]
+     - Activities: Unit testing, integration testing, user acceptance testing.
+
+  5. **Deployment**
+     - Estimated Duration: [Number of Weeks/Days]
+     - Activities: Setting up production environment, deployment, rollback planning.
+
+  6. **Project Management**
+     - Estimated Duration: [Number of Weeks/Days, can be ongoing throughout the project]
+     - Activities: Monitoring progress, communication with stakeholders, risk management.
+
+  ## Resource Allocation
+  - **Project Manager:**
+    - Phases: All phases
+    - Time Allocation: [Percentage of total time]
+  - **Developers:**
+    - Phases: Design, Development, Testing
+    - Time Allocation: [Percentage of total time per phase]
+  - **QA Engineers:**
+    - Phases: Testing
+    - Time Allocation: [Percentage of total time]
+  - **UX/UI Designer:**
+    - Phases: Design
+    - Time Allocation: [Percentage of total time]
+  - **DevOps Engineer:**
+    - Phases: Deployment
+    - Time Allocation: [Percentage of total time]
+
+  ## Estimated Timeline
+  - **Total Estimated Duration:** [Total number of weeks/months]
+  - **Timeline Overview:**
+    - Requirements Gathering: [Start Date] - [End Date]
+    - Design: [Start Date] - [End Date]
+    - Development: [Start Date] - [End Date]
+    - Testing: [Start Date] - [End Date]
+    - Deployment: [Start Date] - [End Date]
+
+  ## Additional Considerations
+  - **Challenges:**
+    - [List any anticipated challenges related to the feature idea, such as technical complexity, dependencies, or integration issues.]
+  - **Required Technologies:**
+    - [Mention any specific technologies, tools, or platforms required for the project.]
+
+  ## Conclusion
+  Summarize the key points of the resource estimation, including the overall timeline, team allocation, and any critical factors to watch. Provide recommendations or next steps for ensuring successful project completion.
