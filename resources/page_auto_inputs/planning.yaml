@@ -1,5 +1,5 @@
 idea: >
-  A microservice API that uses the BlackRock Aladdin to consume the benchmark analysis API to analyze customer portfolios
+  A microservice API that uses the BlackRock Aladdin to consume the xyz analysis API to analyze customer portfolios
   and suggest improvements. The API must be created by the company named.
   It calls the BlackRock Aladdin API, which consumes the portfolio details and positions.
   The response should be formatted for display in the user interface for financial advisers to use in making business portfolio decisions for their clients' portfolios.
@@ -11,7 +11,7 @@ target_audience: >
   High-net-worth individuals aged 35-65, small business owners, and retirees seeking personalized wealth management
 
 expected_benefits: >
-  - Enhanced portfolio analysis: Leverage BlackRock's Aladdin platform for in-depth benchmark analysis of customer portfolios.
+  - Enhanced portfolio analysis: Leverage BlackRock's Aladdin platform for in-depth xyz analysis of customer portfolios.
   - Data-driven decision making: Provide financial advisers with actionable insights to make informed portfolio decisions for clients.
   - Improved client service: Enable advisers to offer more personalized and optimized portfolio recommendations.
   - Increased efficiency: Automate the portfolio analysis process, saving time for financial advisers.
@@ -27,7 +27,7 @@ expected_benefits: >
 
 project_objectives: >
   Develop a secure and scalable microservice API for xxx that integrates with BlackRock's Aladdin platform.
-  Implement functionality to consume the BlackRock Aladdin Benchmark Analysis API for analyzing customer portfolios.
+  Implement functionality to consume the BlackRock Aladdin xyz analysis API for analyzing customer portfolios.
   Create a robust system for handling and processing portfolio details and positions data.
   Design and implement an API response structure that provides clear, actionable insights for financial advisers.
   Develop a user-friendly interface for financial advisers to interact with the API results and make informed portfolio decisions.
