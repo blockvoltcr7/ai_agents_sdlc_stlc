@@ -117,10 +117,13 @@ def ai_agents_solutions():
 def what_are_ai_agents():
     st.header("What are AI Agents?")
     st.write("""
-    AI Agents are autonomous or semi-autonomous software entities that can perceive their environment, 
-    make decisions, and take actions to achieve specific goals. They use artificial intelligence 
-    technologies such as machine learning, natural language processing, and computer vision to interact 
-    with users and systems in increasingly sophisticated ways.
+    Agents, in the context of artificial intelligence, particularly refer to systems or 
+    programs powered by large language models (LLMs) that are designed to
+    perform specific tasks autonomously.
+    These tasks can range from simple operations, 
+    like retrieving information or calling external APIs, to more complex activities 
+    like coordinating workflows, automating processes, or even learning and adapting based 
+    on new information.
     """)
     # Display the image
     st.image("../resources/images/agents-diagram.png", caption="AI Agents Diagram", use_column_width=True)
