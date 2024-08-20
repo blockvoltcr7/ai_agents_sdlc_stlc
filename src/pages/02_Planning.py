@@ -126,6 +126,26 @@ def generate_and_display(doc_name, prompt_key, prompts, api_choice, model, tempe
 def planning_phase():
     st.title("Planning Phase: New Feature Playground")
 
+    # Initialize session state variables
+    if "feature_idea" not in st.session_state:
+        st.session_state.feature_idea = ""
+    if "competitors" not in st.session_state:
+        st.session_state.competitors = ""
+    if "target_audience" not in st.session_state:
+        st.session_state.target_audience = ""
+    if "expected_benefits" not in st.session_state:
+        st.session_state.expected_benefits = ""
+    if "project_objectives" not in st.session_state:
+        st.session_state.project_objectives = ""
+    if "timeframe" not in st.session_state:
+        st.session_state.timeframe = "6 months"
+    if "stakeholders" not in st.session_state:
+        st.session_state.stakeholders = ""
+    if "potential_risks" not in st.session_state:
+        st.session_state.potential_risks = ""
+    if "team_size" not in st.session_state:
+        st.session_state.team_size = 10
+
     prompts_path = os.path.join("../resources", "prompts", "pages", "planning_prompts.yaml")
     logger.info(f"Loading prompts from: {prompts_path}")
     prompts = load_prompts(prompts_path)

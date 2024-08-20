@@ -25,7 +25,7 @@ def load_prompts(file_path):
 
 def sidebar_model_selection():
     st.sidebar.header("Model Selection")
-    api_choice = st.sidebar.selectbox("Choose API:", ["Groq", "Gemini", "OpenAI", "Claude", "Meta-Llama"], key="api_choice")
+    api_choice = st.sidebar.selectbox("Choose API:", ["Claude", "Gemini", "OpenAI", "Groq", "Meta-Llama"], key="api_choice")
  
     model_options = {
         "Groq": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"],
@@ -37,9 +37,9 @@ def sidebar_model_selection():
 
     model = st.sidebar.selectbox("Choose model:", model_options[api_choice], key="model")
     
-    temperature = st.sidebar.slider("Temperature:", min_value=0.0, max_value=1.0, value=0.7, step=0.1, key="temperature")
-    max_tokens = st.sidebar.slider("Max Tokens:", min_value=100, max_value=8192, value=1024, key="max_tokens")
-    top_p = st.sidebar.slider("Top P:", min_value=0.0, max_value=1.0, value=0.95, step=0.01, key="top_p")
+    temperature = st.sidebar.slider("Temperature:", min_value=0.0, max_value=1.0, value=0.5, step=0.1, key="temperature")
+    max_tokens = st.sidebar.slider("Max Tokens:", min_value=100, max_value=8192, value=2500, key="max_tokens")
+    top_p = st.sidebar.slider("Top P:", min_value=0.0, max_value=1.0, value=0.90, step=0.01, key="top_p")
     
     return api_choice, model, temperature, max_tokens, top_p
 
@@ -249,7 +249,7 @@ def main():
     st.write("Welcome to the Design Phase. We'll create detailed design specifications based on the planning and requirements phases.")
 
     # Set the feature_name
-    st.session_state.feature_name = st.session_state.get("feature_name", "AI-driven personalized investment portfolio rebalancing")
+    st.session_state.feature_name = st.session_state.get("feature_name", "Microservice API for Portfolio Benchmark Analysis using BlackRock Aladdin")
 
     st.info("""
     Instructions:

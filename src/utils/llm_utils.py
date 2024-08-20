@@ -86,24 +86,24 @@ def process_text_meta_llama(content, prompt, model, temperature, top_p, max_toke
         logger.error(f"An error occurred while processing the text with Meta-Llama: {str(e)}")
         return None
 
-def process_text_gemini(content, prompt, model, temperature, top_p, max_tokens):
-    try:
-        logger.info(f"Starting text processing with Gemini. Model: {model}, Temperature: {temperature}, Top P: {top_p}, Max Tokens: {max_tokens}")
-        gemini_model = genai.GenerativeModel(model_name=model)
-        full_prompt = f"{content}\n\n{prompt}"
-        response = gemini_model.generate_content(
-            full_prompt,
-            generation_config=genai.types.GenerationConfig(
-                temperature=temperature,
-                top_p=top_p,
-                max_output_tokens=max_tokens,
-            )
-        )
-        logger.info("Content generated successfully by Gemini model")
-        return response.text if response and response.parts else None
-    except Exception as e:
-        logger.error(f"An error occurred while processing the text with Gemini: {str(e)}")
-        return None
+# def process_text_gemini(content, prompt, model, temperature, top_p, max_tokens):
+#     try:
+#         logger.info(f"Starting text processing with Gemini. Model: {model}, Temperature: {temperature}, Top P: {top_p}, Max Tokens: {max_tokens}")
+#         gemini_model = genai.GenerativeModel(model_name=model)
+#         full_prompt = f"{content}\n\n{prompt}"
+#         response = gemini_model.generate_content(
+#             full_prompt,
+#             generation_config=genai.types.GenerationConfig(
+#                 temperature=temperature,
+#                 top_p=top_p,
+#                 max_output_tokens=max_tokens,
+#             )
+#         )
+#         logger.info("Content generated successfully by Gemini model")
+#         return response.text if response and response.parts else None
+#     except Exception as e:
+#         logger.error(f"An error occurred while processing the text with Gemini: {str(e)}")
+#         return None
 
 
 

@@ -42,7 +42,7 @@ project_objectives: >
 stakeholders: >
   CIO (project sponsor), Head of Wealth Management (project lead), Lead Financial Advisor, Data Scientist, UI/UX Designer, Backend Developer, Compliance Officer, Marketing Director, Client Relations Manager
 
-risks: >
+potential_risks: >
   Data security vulnerabilities - Risk of unauthorized access to sensitive client portfolio information during transmission or storage.
   API integration challenges - Difficulties in seamlessly integrating with BlackRock's Aladdin API, potentially causing delays or functionality issues.
   Regulatory compliance issues - Failure to meet financial industry regulations or data protection standards, leading to legal consequences.
