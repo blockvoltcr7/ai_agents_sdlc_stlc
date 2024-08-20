@@ -46,7 +46,8 @@ design_overview:
     ---
 
     Ensure that your design overview is clear, concise, and directly addresses the feature described in the provided information. Avoid including unnecessary details or speculation beyond what is provided in the input variables.
-
+    return response in markdown format, do not use xml tags in the response
+    
 
 system_architecture:
   prompt: >
@@ -89,6 +90,8 @@ system_architecture:
     Remember to tailor your architecture specifically to the given feature, making appropriate assumptions where necessary. If you need any clarification about the feature, state your assumptions clearly in the overview section.
 
     Your goal is to provide a comprehensive and professional system architecture document that could be used by a development team to implement the feature effectively and efficiently.
+    return response in markdown format, do not use xml tags in the response
+
 
 planning_summary:
   prompt: >
@@ -127,6 +130,7 @@ planning_summary:
     - Ensure all content is directly related to the planning phase of the feature.
 
     Remember to use professional language throughout the summary and be as comprehensive as possible within each section. Your goal is to create a document that will serve as a valuable reference for the development team and other stakeholders involved in the project.
+    return response in markdown format, do not use xml tags in the response
 
 
 database_design:
@@ -180,6 +184,7 @@ database_design:
     </database_design>
 
     Ensure that your design is clear, comprehensive, and tailored to the specific feature provided. Use your expertise as a software architect to make appropriate design decisions and explain your reasoning where necessary.
+    return response in markdown format, do not use xml tags in the response
 
 user_interface_design:
   prompt: >
@@ -247,6 +252,7 @@ user_interface_design:
     Remember to consider accessibility and responsiveness throughout the design process, ensuring that the user interface is usable across different devices and by users with various abilities.
 
     Provide detailed explanations for each step of the design process, justifying your decisions and how they contribute to an effective user interface for the given feature.
+    return response in markdown format, do not use xml tags in the response
 
 api_design:
   prompt: >
@@ -254,7 +260,7 @@ api_design:
 
     The feature you will be designing an API for is:
     <feature_name>
-    {{feature_name}}
+    {feature_name}
     </feature_name>
 
     Follow these steps to design the API:
@@ -321,6 +327,7 @@ api_design:
     </api_design>
 
     Ensure that your API design is comprehensive, well-structured, and follows modern API design principles. Consider the specific needs of the feature and how the API can best support its functionality and potential future expansions.
+    return response in markdown format, do not use xml tags in the response
 
 sequence_diagrams:
   prompt: >
@@ -356,7 +363,7 @@ sequence_diagrams:
 
     6. The feature you will be creating sequence diagrams for is:
        <feature_name>
-       {{FEATURE_NAME}}
+       {feature_name}
        </feature_name>
 
     7. In your response:
@@ -366,6 +373,7 @@ sequence_diagrams:
        - After each diagram, briefly explain the process and any important interactions or decision points.
 
     Begin your analysis and create the sequence diagrams now. Present your entire response within <analysis> tags.
+    return response in markdown format, do not use xml tags in the response
 
 security_design:
   prompt: >
@@ -373,7 +381,7 @@ security_design:
 
     The feature you will be designing security measures for is:
     <feature_name>
-    {{feature_name}}
+    {feature_name}
     </feature_name>
 
     Follow these steps to design the security measures:
@@ -442,6 +450,7 @@ security_design:
     </security_design>
 
     Ensure your security design is comprehensive, addressing all potential vulnerabilities while maintaining usability of the feature. Be specific in your recommendations, providing concrete examples and justifications for each security measure proposed.
+    return response in markdown format, do not use xml tags in the response
 
 performance_considerations:
   prompt: >
@@ -449,7 +458,7 @@ performance_considerations:
 
     The feature you will be analyzing is:
     <feature_name>
-    {{feature_name}}
+    {feature_name}
     </feature_name>
 
     Please outline the performance considerations for this feature, keeping in mind the following guidelines:
@@ -479,6 +488,7 @@ performance_considerations:
     7. Keep in mind the interdependencies between different performance aspects and how they might affect each other.
 
     Please provide your outline within <outline> tags. Use appropriate formatting (e.g., line breaks, indentation) to ensure readability. Begin each main section with a brief introduction explaining its importance to the overall performance of the feature.
+    return response in markdown format, do not use xml tags in the response
 
 testing_strategy:
   prompt: >
@@ -516,13 +526,16 @@ testing_strategy:
     2. Focus on efficiency by leveraging automation where possible.
     3. Align the testing goals with the overall project objectives and timelines.
     4. Address potential risks early by incorporating risk-based testing into the plan.
+    return response in markdown format, do not use xml tags in the response
 
 design_review:
   prompt: >
     Role: Software Development Process Manager
 
-    Prompt:
 
+    {feature_name}
+
+  
     You are a Software Development Process Manager, responsible for creating and overseeing the design review and approval process within the software development life cycle. Your task is to create a comprehensive design review and approval process for the feature: {feature_name}.
 
     The process should include the following components:
@@ -557,3 +570,4 @@ design_review:
     3. Focus on maintaining alignment with the overall project goals and timelines while ensuring the design meets all quality standards.
 
     4. Ensure that the process includes mechanisms for continuous improvement based on lessons learned from previous design reviews.
+    return response in markdown format, do not use xml tags in the response

@@ -87,6 +87,8 @@ non_functional_requirements:
     expected output: format must be in markdown format.
     </Note>
 
+    return response in markdown format, do not use xml tags in the response
+
 technical_requirements:
   prompt: >
     <Instruction>
@@ -140,7 +142,7 @@ technical_requirements:
     Ensure your analysis is thorough and that each technical requirement adheres to the SMART criteria.
     </Note>
 
-    expected output: format must be in markdown format.
+    return response in markdown format, do not use xml tags in the response
 
 user_interface_requirements:
   prompt: >
@@ -195,7 +197,7 @@ user_interface_requirements:
     Ensure your analysis is thorough and that each UI requirement adheres to the SMART criteria.
     </Note>
 
-    expected output: format must be in markdown format.
+    return response in markdown format, do not use xml tags in the response
 
 security_requirements:
   prompt: >
@@ -258,7 +260,7 @@ security_requirements:
 
     Ensure that your requirements are tailored to the specific context provided
 
-    expected output: format must be in markdown format.
+    return response in markdown format, do not use xml tags in the response
 
 performance_requirements: 
   prompt: >
@@ -318,4 +320,4 @@ performance_requirements:
 
     Ensure that your requirements are tailored to the specific context provided and focus on improving performance aspects of the business or system described.
 
-    expected output: format must be in markdown format.
+    return response in markdown format, do not use xml tags in the response

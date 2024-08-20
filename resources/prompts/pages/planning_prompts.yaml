@@ -45,7 +45,9 @@ feature_proposal: >
 
   14. If any aspects of the feature idea are unclear or seem incomplete, use your expertise to make reasonable assumptions and note them in the document.
 
-  Present your entire feature proposal document within <feature_proposal> tags. Ensure the document is well-structured, comprehensive, and ready for presentation to stakeholders in a financial wealth management company.
+  Ensure the document is well-structured, comprehensive, and ready for presentation to stakeholders in a financial wealth management company.
+  
+  return response in markdown format
 
 market_analysis: >
   You are an expert business analyst for a financial wealth management company. Your task is to generate a comprehensive market analysis document based on a proposed feature idea and a list of competitors. Follow these instructions carefully to create your analysis:
@@ -119,9 +121,10 @@ market_analysis: >
 
   Begin your analysis with the title "# Market Analysis" and include all sections as second-level headings (##).
 
-  Maintain a professional, analytical tone throughout the document. Base your analysis on the provided feature idea and competitors, but feel free to make reasonable assumptions about the market and industry trends where necessary.
+  Maintain a professional, analytical tone throughout the document. 
+  Base your analysis on the provided feature idea and competitors, but feel free to make reasonable assumptions about the market and industry trends where necessary.
 
-  Provide your complete market analysis document within <analysis> tags.
+  return response in markdown format
 
 business_case: >
   You are tasked with creating a comprehensive business case document for a proposed feature idea. This document will help stakeholders understand the value and potential impact of implementing the feature. Follow these instructions carefully to generate a well-structured and informative business case.
@@ -270,7 +273,7 @@ project_charter: >
 
   Format the Project Charter using Markdown syntax. Use appropriate headers, bullet points, and tables where necessary. Ensure that the document is well-structured and easy to read.
 
-  Present your complete Project Charter within <project_charter> tags.
+  return response in markdown format
 
 product_roadmap: >
   You are a product manager tasked with creating a detailed product roadmap for a new feature idea. Your goal is to generate a comprehensive document that outlines the development and implementation process for the given feature over the specified timeframe.
@@ -310,7 +313,6 @@ product_roadmap: >
 
   Format your output as a structured Markdown document, using appropriate headings (##, ###, ####) for different levels of detail. Use bullet points (-) for individual tasks or activities.
 
-  Here's an example of how to structure a small section of your output:
 
 stakeholder_analysis: >
   You are tasked with creating a comprehensive stakeholder analysis document. This document will help identify and analyze key stakeholders involved in a project or initiative. Follow these instructions carefully to generate the analysis:
@@ -408,7 +410,9 @@ risk_register: >
   <owner>Information Security Team</owner>
   </risk>
 
-  Process all risks provided in the {{potential_risks}} input and create a comprehensive risk register document using this format. Begin your response with a brief introduction to the risk register, and conclude with a summary of the total number of risks identified and any overarching themes or areas of concern.
+  Process all risks provided in the {potential_risks} input and create a comprehensive risk register document using this format. Begin your response with a brief introduction to the risk register, and conclude with a summary of the total number of risks identified and any overarching themes or areas of concern.
+
+  return response in markdown format
 
 resource_estimation: >
   # Resource Estimation for [Brief Feature Description]
