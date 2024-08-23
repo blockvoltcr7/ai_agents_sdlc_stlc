@@ -5,8 +5,7 @@ design_overview:
     You will be provided with the following information:
 
     - **Feature Name**: {feature_name}
-    - **Planning Summary**: {planning_summary}
-    - **Requirements Summary**: {requirements_summary}
+    - **Context**: {context}
 
     Using this information, create a design overview that includes the following components:
 
@@ -19,8 +18,8 @@ design_overview:
     ### Guidelines:
 
     1. Begin with a concise introduction that sets the context for the design phase.
-    2. Clearly state the key goals and objectives, ensuring they align with the information provided in the planning and requirements summaries.
-    3. Explicitly connect the design to business goals and user stories mentioned in the summaries.
+    2. Clearly state the key goals and objectives, ensuring they align with the information provided in the context.
+    3. Explicitly connect the design to business goals and user stories mentioned in the context.
     4. Provide a high-level overview of the main design components without delving into excessive technical details.
     5. Identify and explain any critical constraints or considerations that may impact the design or implementation.
 
@@ -43,9 +42,8 @@ design_overview:
     **Constraints and Considerations**  
     [List and explanation of critical constraints or considerations]
 
-    Ensure that your design overview is clear, concise, and directly addresses the feature described in the provided information. Avoid including unnecessary details or speculation beyond what is provided in the input variables.
+    Ensure that your design overview is clear, concise, and directly addresses the feature described in the provided context. Avoid including unnecessary details or speculation beyond what is provided in the input variables.
     return response in markdown format, do not use xml tags in the response
-    
 
 system_architecture:
   prompt: >
@@ -53,9 +51,8 @@ system_architecture:
 
     The feature you will be designing the system architecture for is:
 
-    <feature_name>
-    {feature_name}
-    </feature_name>
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
     Please create a detailed system architecture document for this feature. Include the following sections in your document:
 
@@ -90,482 +87,326 @@ system_architecture:
     Your goal is to provide a comprehensive and professional system architecture document that could be used by a development team to implement the feature effectively and efficiently.
     return response in markdown format, do not use xml tags in the response
 
-
-planning_summary:
-  prompt: >
-    You are tasked with acting as a software architect and creating a comprehensive planning summary for a new feature. This summary will be used in the documentation for the planning architecture of the system application. Your goal is to provide a detailed and well-structured overview of the planning phase for the given feature.
-
-    The feature you will be summarizing is:
-    <feature_name>{feature_name}</feature_name>
-
-    Your planning summary should include the following key components:
-    1. Feature Overview
-    2. Objectives and Goals
-    3. Scope and Limitations
-    4. Technical Requirements
-    5. System Architecture
-    6. Data Flow and Integration
-    7. User Interface Considerations
-    8. Security and Privacy Considerations
-    9. Performance Requirements
-    10. Testing Strategy
-    11. Timeline and Milestones
-    12. Resource Requirements
-    13. Risk Assessment and Mitigation
-    14. Compliance and Regulatory Considerations
-    15. Stakeholder Analysis
-
-    Structure your summary using these sections as headers. Under each header, provide detailed information relevant to that aspect of the planning phase. Ensure that your content is specific to the given feature and considers its impact on the overall system.
-
-    When writing your summary:
-    - Begin with a brief introduction of the feature and its significance.
-    - For each section, provide thorough and relevant information.
-    - Consider interdependencies between different aspects of the plan.
-    - Include any assumptions made during the planning process.
-    - Highlight potential challenges and proposed solutions.
-    - Use technical language appropriate for a software architecture document.
-    - Be concise yet comprehensive in your explanations.
-    - Ensure all content is directly related to the planning phase of the feature.
-
-    Remember to use professional language throughout the summary and be as comprehensive as possible within each section. Your goal is to create a document that will serve as a valuable reference for the development team and other stakeholders involved in the project.
-    return response in markdown format, do not use xml tags in the response
-
-
 database_design:
   prompt: >
-    You are an experienced software architect tasked with creating a database design for a new feature. Your goal is to provide a comprehensive and well-structured database design that addresses all the required components.
+    You are a database designer tasked with creating a database design for a new feature. Your goal is to produce a comprehensive database design that meets the requirements of the feature.
 
-    The feature you will be designing for is:
-    <feature_name>
-    {feature_name}
-    </feature_name>
+    You will be provided with the following information:
 
-    Please create a database design for this feature, following these steps:
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    1. Create an Entity-Relationship Diagram (ERD):
-       Describe the ERD textually, outlining the main entities and their relationships. Use clear and concise language to explain the structure of your diagram.
+    Using this information, create a database design that includes:
 
-    2. List the main entities and their attributes:
-       For each entity in your ERD, provide a list of its attributes. Include the data type for each attribute and indicate which are primary keys, foreign keys, or have any other special properties.
+    - Entity-Relationship Diagram (ERD):
+      - Provide a textual description of the ERD, outlining the main entities and their relationships. Ensure the explanation is clear, concise, and provides a good understanding of the database structure.
+    - Entities and Attributes:
+      - List the main entities in your ERD along with their attributes.
+      - For each attribute, specify the data type and indicate any special properties, such as primary keys, foreign keys, or unique constraints.
+    - Key Relationships Between Entities:
+      - Describe the relationships between the entities, including the cardinality (e.g., one-to-one, one-to-many, many-to-many).
+      - Explain any associative entities used to resolve many-to-many relationships and provide a rationale for their use.
+    - Indexes and Constraints:
+      - Identify and list necessary indexes that should be created to improve query performance.
+      - Specify any constraints, such as unique constraints, check constraints, or foreign key constraints, that are crucial for maintaining data integrity.
+    - Data Integrity and Performance Considerations:
+      - Discuss additional measures or design decisions made to ensure data integrity and optimize performance.
+      - Consider normalization, denormalization, partitioning strategies, or other relevant database design principles.
+    - Additional Sections for Enhanced Documentation:
+      - Data Model Versioning:
+        - Document the version of the database model, including any changes made from previous versions. This is crucial for maintaining consistency and traceability as the design evolves.
+      - Assumptions and Dependencies:
+        - List any assumptions made during the design process, such as expected data volumes, user load, or external dependencies like third-party integrations or existing systems.
+      - Security Considerations:
+        - Outline any security measures included in the design, such as data encryption, access control mechanisms, and strategies to protect sensitive information.
+      - Backup and Recovery Strategy:
+        - Describe the backup and recovery plan for the database. This should include details on backup frequency, storage solutions, and recovery procedures in case of data loss.
+      - Scalability and Future Growth:
+        - Discuss how the database design accommodates scalability and future growth. Consider aspects such as horizontal scaling, sharding, and potential changes in data volume or structure.
 
-    3. Describe key relationships between entities:
-       Explain the relationships between the entities, including cardinality (one-to-one, one-to-many, many-to-many) and any associative entities used to resolve many-to-many relationships.
+    Documentation Format:
+    - ERD Description:
+      - [Textual description of the Entity-Relationship Diagram]
+    - Entities and Attributes:
+      - [List of main entities and their attributes, including data types and properties]
+    - Key Relationships:
+      - [Description of key relationships between entities]
+    - Indexes and Constraints:
+      - [List of necessary indexes and constraints]
+    - Data Integrity and Performance:
+      - [Considerations for data integrity and performance]
+    - Data Model Versioning:
+      - [Version history and changes from previous models]
+    - Assumptions and Dependencies:
+      - [List of assumptions and dependencies relevant to the design]
+    - Security Considerations:
+      - [Description of security measures included in the design]
+    - Backup and Recovery Strategy:
+      - [Outline of backup and recovery plans]
+    - Scalability and Future Growth:
+      - [Discussion on scalability considerations]
 
-    4. Specify necessary indexes or constraints:
-       Identify any indexes that should be created to improve query performance. Also, list any constraints (e.g., unique constraints, check constraints) that should be applied to ensure data integrity.
-
-    5. Provide considerations for data integrity and performance:
-       Discuss any additional measures or design choices you've made to ensure data integrity and optimize performance. This may include normalization decisions, partitioning strategies, or any other relevant database design principles.
-
-    Present your database design in the following format:
-
-    <database_design>
-    <erd_description>
-    [Your textual description of the Entity-Relationship Diagram]
-    </erd_description>
-
-    <entities_and_attributes>
-    [List of main entities and their attributes]
-    </entities_and_attributes>
-
-    <key_relationships>
-    [Description of key relationships between entities]
-    </key_relationships>
-
-    <indexes_and_constraints>
-    [List of necessary indexes and constraints]
-    </indexes_and_constraints>
-
-    <integrity_and_performance>
-    [Considerations for data integrity and performance]
-    </integrity_and_performance>
-    </database_design>
-
-    Ensure that your design is clear, comprehensive, and tailored to the specific feature provided. Use your expertise as a software architect to make appropriate design decisions and explain your reasoning where necessary.
+    Ensure that your design is clear, comprehensive, and tailored to the specific feature provided. Use your expertise as a database designer to make appropriate design decisions and explain your reasoning where necessary. Provide the response in markdown format.
     return response in markdown format, do not use xml tags in the response
 
 user_interface_design:
   prompt: >
-    You are an expert UI/UX system architecture engineer tasked with designing the user interface for a specific feature. Your goal is to create a comprehensive and user-friendly design that meets the needs of the target audience while adhering to best practices in UI/UX design.
+    You are a UI/UX designer tasked with creating a user interface design for a new feature. Your goal is to produce a user-friendly and visually appealing interface.
 
-    The feature you will be designing for is:
-    <feature_name>
-    {{feature_name}}
-    </feature_name>
+    You will be provided with the following information:
 
-    Follow these steps to design the user interface:
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    1. Research and Analysis:
-       - Analyze the feature requirements and objectives
-       - Identify the target user group and their needs
-       - Research similar features in existing applications for inspiration
+    Using this information, create a user interface design that includes:
 
-    2. User Flow and Information Architecture:
-       - Create a user flow diagram showing how users will interact with the feature
-       - Develop an information architecture that organizes content and functionality logically
-
-    3. Wireframing:
-       - Create low-fidelity wireframes for key screens or components of the feature
-       - Focus on layout, hierarchy, and functionality without detailed visual design
-
-    4. Visual Design:
-       - Develop a visual style guide including color scheme, typography, and iconography
-       - Apply the visual design to the wireframes, creating high-fidelity mockups
-
-    5. Prototyping:
-       - Create an interactive prototype demonstrating the feature's functionality and user flow
+    - Research and Analysis:
+      - Analyze the feature requirements and objectives.
+      - Identify the target user group and their needs.
+      - Research similar features in existing applications for inspiration.
+    - User Flow and Information Architecture:
+      - Create a user flow diagram showing how users will interact with the feature.
+      - Develop an information architecture that organizes content and functionality logically.
+    - Wireframing:
+      - Create low-fidelity wireframes for key screens or components of the feature.
+      - Focus on layout, hierarchy, and functionality without detailed visual design.
+    - Visual Design:
+      - Develop a visual style guide including color scheme, typography, and iconography.
+      - Apply the visual design to the wireframes, creating high-fidelity mockups.
+    - Prototyping:
+      - Create an interactive prototype demonstrating the feature's functionality and user flow.
 
     Present your design process and final output in the following format:
 
-    <ui_ux_design>
-    <research_and_analysis>
-    [Provide a summary of your research findings and analysis]
-    </research_and_analysis>
-
-    <user_flow>
-    [Describe the user flow in detail or provide a textual representation of the flow diagram]
-    </user_flow>
-
-    <information_architecture>
-    [Explain the information architecture for the feature]
-    </information_architecture>
-
-    <wireframes>
-    [Describe the key wireframes for the feature, including layout and functionality]
-    </wireframes>
-
-    <visual_design>
-    [Describe the visual design elements, including color scheme, typography, and iconography]
-    </visual_design>
-
-    <prototype>
-    [Explain how the interactive prototype would function and demonstrate the feature's key interactions]
-    </prototype>
-
-    <design_considerations>
-    [Discuss any important design considerations, trade-offs, or decisions made during the process]
-    </design_considerations>
-    </ui_ux_design>
+    - **Research and Analysis:** 
+      - [Summary of your research findings and analysis]
+    - **User Flow:** 
+      - [Description of the user flow or a textual representation of the flow diagram]
+    - **Information Architecture:** 
+      - [Explanation of the information architecture for the feature]
+    - **Wireframes:** 
+      - [Description of the key wireframes for the feature, including layout and functionality]
+    - **Visual Design:** 
+      - [Description of the visual design elements, including color scheme, typography, and iconography]
+    - **Prototype:** 
+      - [Explanation of how the interactive prototype would function and demonstrate the feature's key interactions]
+    - **Design Considerations:** 
+      - [Discussion of any important design considerations, trade-offs, or decisions made during the process]
 
     Remember to consider accessibility and responsiveness throughout the design process, ensuring that the user interface is usable across different devices and by users with various abilities.
 
-    Provide detailed explanations for each step of the design process, justifying your decisions and how they contribute to an effective user interface for the given feature.
+    Provide detailed explanations for each step of the design process, justifying your decisions and how they contribute to an effective user interface for the given feature. Provide the response in markdown format.
     return response in markdown format, do not use xml tags in the response
 
 api_design:
   prompt: >
-    You are an expert system architecture technical lead tasked with designing the API for a new feature. Your goal is to create a well-structured, efficient, and scalable API design that meets the requirements of the feature while following best practices in API development.
+    You are an API designer tasked with creating an API design for a new feature. Your goal is to produce a comprehensive API design that meets the requirements of the feature.
 
-    The feature you will be designing an API for is:
-    <feature_name>
-    {feature_name}
-    </feature_name>
+    You will be provided with the following information:
 
-    Follow these steps to design the API:
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    1. Analyze the feature:
-       - Identify the main functionalities and components of the feature.
-       - Determine the key data entities involved.
-       - Consider potential use cases and user interactions.
+    Using this information, create an API design that includes:
 
-    2. Design the API structure:
-       - Define the primary endpoints needed to support the feature.
-       - Determine appropriate HTTP methods (GET, POST, PUT, DELETE, etc.) for each endpoint.
-       - Plan the request and response structures for each endpoint.
-       - Consider authentication and authorization requirements.
+    - API Overview
+      - Provide a brief overview of the API and its main components
+    - Authentication
+      - Describe the authentication method(s) to be used, e.g., OAuth 2.0, JWT, API keys
+    - Endpoints
+      - For each endpoint, include:
+        - URL
+        - HTTP Method
+        - Description
+        - Request Parameters (if any)
+        - Request Body (if applicable)
+        - Response Structure
+        - Example Request (optional)
+        - Example Response (optional)
+    - Error Handling
+      - Describe the general error response structure and common error codes
+    - Versioning Strategy
+      - Explain how versioning will be handled in the API
+    - Rate Limiting
+      - Describe any rate limiting policies
+    - Security Considerations
+      - Outline the security measures and practices for the API
+    - Monitoring and Analytics
+      - Describe how the API will be monitored and what metrics will be tracked
+    - Compliance and Regulatory Requirements
+      - Mention any compliance or regulatory standards the API must adhere to
+    - Fallback and Redundancy
+      - Discuss strategies for ensuring high availability and reliability
+    - Additional Considerations
+      - Include any other important notes or considerations for the API design
 
-    3. Follow API design best practices:
-       - Use RESTful principles where appropriate.
-       - Ensure consistency in naming conventions and data formats.
-       - Plan for versioning to allow future updates without breaking existing integrations.
-       - Consider rate limiting and pagination for resource-intensive endpoints.
-       - Plan for proper error handling and informative error messages.
-
-    4. Consider scalability and performance:
-       - Design endpoints that can handle potential high loads.
-       - Plan for caching strategies where applicable.
-       - Consider asynchronous operations for time-consuming tasks.
-
-    5. Document your API design:
-       - Provide clear descriptions for each endpoint, including their purpose and usage.
-       - Detail the request parameters and response structures.
-       - Include example requests and responses where helpful.
-
-    Present your API design in the following format:
-
-    <api_design>
-    1. API Overview
-       [Provide a brief overview of the API and its main components]
-
-    2. Authentication
-       [Describe the authentication method(s) to be used]
-
-    3. Endpoints
-       [For each endpoint, include:]
-       - URL
-       - HTTP Method
-       - Description
-       - Request Parameters (if any)
-       - Request Body (if applicable)
-       - Response Structure
-       - Example Request (optional)
-       - Example Response (optional)
-
-    4. Error Handling
-       [Describe the general error response structure and common error codes]
-
-    5. Versioning Strategy
-       [Explain how versioning will be handled in the API]
-
-    6. Rate Limiting
-       [Describe any rate limiting policies]
-
-    7. Additional Considerations
-       [Include any other important notes or considerations for the API design]
-    </api_design>
-
-    Ensure that your API design is comprehensive, well-structured, and follows modern API design principles. Consider the specific needs of the feature and how the API can best support its functionality and potential future expansions.
+    Ensure that your API design is comprehensive, well-structured, and follows modern API design principles. Consider the specific needs of the feature and how the API can best support its functionality and potential future expansions. Provide the response in markdown format.
     return response in markdown format, do not use xml tags in the response
 
 sequence_diagrams:
   prompt: >
-    You are an expert system architecture technical lead and business analyst. Your task is to create sequence diagrams for key processes in a given feature. Follow these instructions carefully:
+    You are a systems analyst tasked with creating sequence diagrams for a new feature. Your goal is to produce clear and comprehensive sequence diagrams that illustrate the interactions between components.
 
-    1. Understand the purpose of sequence diagrams:
-       Sequence diagrams illustrate how objects in a system interact with each other over time. They show the order of interactions between objects, including method calls and responses.
+    You will be provided with the following information:
 
-    2. Analyze the feature:
-       - Identify the main actors (users, external systems) involved in the feature.
-       - Determine the key processes within the feature.
-       - Identify the objects or components that interact in each process.
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    3. For each key process, create a sequence diagram following these guidelines:
-       - Start with the initiating actor (usually a user or external system).
-       - List the objects or components involved horizontally across the top of the diagram.
-       - Use vertical lifelines to represent the timeline for each object.
-       - Show interactions between objects with horizontal arrows, labeled with the method or message name.
-       - Include activation boxes to show when an object is active or processing.
-       - Use return arrows to show responses or return values.
-       - Include loops, conditions, or alternative flows if necessary.
+    Using this information, create sequence diagrams that include:
 
-    4. Use the following format for your output:
-       <sequence_diagram>
-       [Describe the sequence diagram here, using plain text to represent the diagram elements. Use indentation to show hierarchy and relationships between elements.]
-       </sequence_diagram>
+    - System Context:
+      - Provide important information about the system and its architecture, including relevant technical details, constraints, and any assumptions that impact the sequence diagrams.
+    - Feature Overview:
+      - Briefly introduce the feature and its main purpose.
+      - List the key processes you have identified for the feature.
+    - Sequence Diagrams:
+      - For each key process, present the sequence diagram using the following format:
+        - Process Name: [Name of the key process]
+        - Sequence Diagram:
+          - [Plain text representation of the sequence diagram]
+        - Explanation: [Brief explanation of the process and interactions]
+    - Assumptions and Constraints:
+      - List of assumptions and constraints relevant to the diagrams
+    - Future Considerations:
+      - Scalability: [Discussion on scalability]
+      - Potential Enhancements: [Suggestions for future improvements]
+    - Validation and Review:
+      - Peer Review: [Notes on peer review recommendations]
+      - Testing Scenarios: [Proposed testing scenarios]
 
-    5. System context:
-       Here is important information about the system and its architecture:
-       <system_context>
-       {{SYSTEM_CONTEXT}}
-       </system_context>
-
-    6. The feature you will be creating sequence diagrams for is:
-       <feature_name>
-       {feature_name}
-       </feature_name>
-
-    7. In your response:
-       - Briefly introduce the feature and its main purpose.
-       - List the key processes you've identified for the feature.
-       - For each key process, provide a sequence diagram using the format specified above.
-       - After each diagram, briefly explain the process and any important interactions or decision points.
-
-    Begin your analysis and create the sequence diagrams now. Present your entire response within <analysis> tags.
+    Ensure that your sequence diagrams are clear, comprehensive, and accurately reflect the processes within the feature. Document your findings and diagrams in markdown format for easy readability and integration into project documentation.
     return response in markdown format, do not use xml tags in the response
 
 security_design:
   prompt: >
-    You are an expert system architecture technical lead specializing in security. Your task is to design comprehensive security measures for a given feature. Approach this task with a thorough understanding of cybersecurity best practices and potential vulnerabilities.
+    You are a security architect tasked with designing security measures for a new feature. Your goal is to produce a comprehensive security design that addresses potential vulnerabilities.
 
-    The feature you will be designing security measures for is:
-    <feature_name>
-    {feature_name}
-    </feature_name>
+    You will be provided with the following information:
 
-    Follow these steps to design the security measures:
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    1. Analyze the feature:
-       - Identify the key components and functionalities of the feature
-       - Determine potential entry points for security threats
-       - Consider the types of data involved and their sensitivity
+    Using this information, create a security design that includes:
 
-    2. Identify potential security risks:
-       - List possible attack vectors relevant to this feature
-       - Consider both external and internal threats
-       - Think about data privacy and compliance requirements
+    - Feature Overview:
+      - Provide a brief overview of the feature and its key security considerations.
+    - Risk Assessment:
+      - List the identified potential security risks and vulnerabilities.
+    - Security Measures:
+      - Detail the proposed security measures, addressing each of the areas mentioned in the steps above.
+    - Integration Considerations:
+      - Explain how the security measures will integrate with existing systems and any necessary policy updates.
+    - Maintenance Plan:
+      - Outline the plan for ongoing security maintenance and auditing.
+    - Compliance:
+      - Address how the security design meets relevant compliance and regulatory requirements.
+    - Threat Modeling:
+      - Provide the results of the threat modeling exercise, including identified threats and mitigation strategies.
+    - Incident Response Plan:
+      - Detail the incident response plan, including detection, response, and recovery procedures.
+    - User Training and Awareness:
+      - Propose user training and awareness strategies to maintain a high level of security consciousness.
+    - Testing and Validation:
+      - Describe the planned security testing and validation processes to ensure the effectiveness of the security measures.
+    - Additional Recommendations:
+      - Provide any additional recommendations or considerations specific to this feature.
 
-    3. Design security measures:
-       - Propose authentication and authorization mechanisms
-       - Recommend encryption methods for data at rest and in transit
-       - Suggest input validation and sanitization techniques
-       - Consider access control measures
-       - Plan for secure communication protocols
-       - Incorporate logging and monitoring solutions
-       - Design error handling and reporting mechanisms that don't expose sensitive information
-
-    4. Consider integration with existing systems:
-       - Ensure compatibility with current security infrastructure
-       - Propose any necessary updates to existing security policies
-
-    5. Plan for ongoing security maintenance:
-       - Suggest regular security audit procedures
-       - Recommend update and patch management strategies
-
-    6. Address compliance and regulatory requirements:
-       - Identify relevant industry standards and regulations
-       - Ensure the security measures meet or exceed these requirements
-
-    Present your security design in the following format:
-
-    <security_design>
-    <feature_overview>
-    Provide a brief overview of the feature and its key security considerations.
-    </feature_overview>
-
-    <risk_assessment>
-    List the identified potential security risks and vulnerabilities.
-    </risk_assessment>
-
-    <security_measures>
-    Detail the proposed security measures, addressing each of the areas mentioned in step 3 above.
-    </security_measures>
-
-    <integration_considerations>
-    Explain how the security measures will integrate with existing systems and any necessary policy updates.
-    </integration_considerations>
-
-    <maintenance_plan>
-    Outline the plan for ongoing security maintenance and auditing.
-    </maintenance_plan>
-
-    <compliance>
-    Address how the security design meets relevant compliance and regulatory requirements.
-    </compliance>
-
-    <additional_recommendations>
-    Provide any additional recommendations or considerations specific to this feature.
-    </additional_recommendations>
-    </security_design>
-
-    Ensure your security design is comprehensive, addressing all potential vulnerabilities while maintaining usability of the feature. Be specific in your recommendations, providing concrete examples and justifications for each security measure proposed.
+    Ensure your security design is comprehensive, addressing all potential vulnerabilities while maintaining the usability of the feature. Be specific in your recommendations, providing concrete examples and justifications for each security measure proposed. Provide the response in markdown format.
     return response in markdown format, do not use xml tags in the response
 
 performance_considerations:
   prompt: >
-    You are an expert Site Reliability Engineer (SRE) and DevOps engineer tasked with outlining the performance considerations for a new feature. Your goal is to provide a comprehensive outline that covers various aspects of performance that need to be considered when implementing and maintaining this feature.
+    You are a performance engineer tasked with designing performance considerations for a new feature. Your goal is to produce a comprehensive performance design that addresses potential bottlenecks.
 
-    The feature you will be analyzing is:
-    <feature_name>
-    {feature_name}
-    </feature_name>
+    You will be provided with the following information:
 
-    Please outline the performance considerations for this feature, keeping in mind the following guidelines:
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-    1. Consider all relevant aspects of performance, including but not limited to:
-       - Scalability
-       - Latency
-       - Throughput
-       - Resource utilization (CPU, memory, disk I/O, network)
-       - Caching strategies
-       - Database performance
-       - Load balancing
-       - Concurrency and parallelism
-       - Monitoring and observability
-       - Failure modes and resilience
+    Using this information, create performance considerations that include:
 
-    2. Structure your outline in a logical, hierarchical manner, using numbered sections and subsections.
+    - Performance Risks:
+      - List the identified potential performance risks and bottlenecks.
+    - Optimization Strategies:
+      - Detail the proposed performance optimization strategies, addressing each of the areas mentioned in the context.
+    - Integration Considerations:
+      - Explain how the performance strategies will integrate with existing systems and any necessary policy updates.
+    - Maintenance Plan:
+      - Outline the plan for ongoing performance maintenance and auditing.
+    - Compliance:
+      - Address how the performance considerations meet relevant compliance and regulatory requirements.
+    - Additional Recommendations:
+      - Provide any additional recommendations or considerations specific to this feature.
 
-    3. For each consideration, briefly explain why it's important and how it might impact the overall system performance.
-
-    4. Include potential optimization strategies or best practices where applicable.
-
-    5. Consider both the immediate performance implications and potential future scalability concerns.
-
-    6. If relevant, mention any specific tools, technologies, or methodologies that could be useful in addressing these performance considerations.
-
-    7. Keep in mind the interdependencies between different performance aspects and how they might affect each other.
-
-    Please provide your outline within <outline> tags. Use appropriate formatting (e.g., line breaks, indentation) to ensure readability. Begin each main section with a brief introduction explaining its importance to the overall performance of the feature.
+    Ensure that your performance considerations are comprehensive, well-structured, and follow modern performance best practices. Consider the specific needs of the feature and how the performance strategies can best optimize its functionality and data processing.
     return response in markdown format, do not use xml tags in the response
 
 testing_strategy:
   prompt: >
-    You are an expert Lead QA Test Automation Engineer. Your task is to develop a comprehensive testing strategy for the feature: {feature_name}.
+    You are a QA engineer tasked with creating a testing strategy for a new feature. Your goal is to produce a comprehensive testing strategy that covers all critical aspects of the feature.
 
-    The strategy should include the following components:
+    You will be provided with the following information:
 
-    1. Overview of the Testing Approach
-       Provide a high-level overview of the testing strategy, including the types of testing (e.g., unit, integration, end-to-end, performance) that will be employed.
-    
-    2. Test Environment Setup
-       Describe the environment in which the tests will be executed, including any specific tools, frameworks, or infrastructure required.
-    
-    3. Test Automation Plan
-       Detail the automation strategy, including which tests will be automated, the tools to be used, and how the automation will be integrated into the CI/CD pipeline.
-    
-    4. Test Data Management
-       Outline how test data will be managed, including data creation, storage, and usage across different test cases.
-    
-    5. Risk-Based Testing
-       Identify any high-risk areas of the feature and describe how testing will prioritize these areas to mitigate potential issues.
-    
-    6. Coverage and Metrics
-       Define the test coverage goals and the metrics that will be tracked to measure the effectiveness of the testing strategy.
-    
-    7. Roles and Responsibilities
-       Specify the roles and responsibilities of the QA team members involved in testing the feature.
-    
-    8. Timeline and Milestones
-       Provide a timeline for the testing phases, including key milestones for test planning, execution, and reporting.
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
+
+    Using this information, create a testing strategy that includes:
+
+    - Overview of the Testing Approach
+      - Provide a high-level overview of the testing strategy, including the types of testing (e.g., unit, integration, end-to-end, performance) that will be employed.
+    - Test Environment Setup
+      - Describe the environment in which the tests will be executed, including any specific tools, frameworks, or infrastructure required.
+    - Test Automation Plan
+      - Detail the automation strategy, including which tests will be automated, the tools to be used, and how the automation will be integrated into the CI/CD pipeline.
+    - Test Data Management
+      - Outline how test data will be managed, including data creation, storage, and usage across different test cases.
+    - Risk-Based Testing
+      - Identify any high-risk areas of the feature and describe how testing will prioritize these areas to mitigate potential issues.
+    - Coverage and Metrics
+      - Define the test coverage goals and the metrics that will be tracked to measure the effectiveness of the testing strategy.
+    - Roles and Responsibilities
+      - Specify the roles and responsibilities of the QA team members involved in testing the feature.
+    - Timeline and Milestones
+      - Provide a timeline for the testing phases, including key milestones for test planning, execution, and reporting.
 
     Guidelines:
 
-    1. Ensure the testing strategy is thorough and covers all critical aspects of the feature.
-    2. Focus on efficiency by leveraging automation where possible.
-    3. Align the testing goals with the overall project objectives and timelines.
-    4. Address potential risks early by incorporating risk-based testing into the plan.
+    - Ensure the testing strategy is thorough and covers all critical aspects of the feature.
+    - Focus on efficiency by leveraging automation where possible.
+    - Align the testing goals with the overall project objectives and timelines.
+    - Address potential risks early by incorporating risk-based testing into the plan.
     return response in markdown format, do not use xml tags in the response
 
 design_review:
   prompt: >
-    Role: Software Development Process Manager
+    You are a Software Development Process Manager responsible for creating and overseeing the design review and approval process for a new feature. Your goal is to produce a comprehensive design review process.
 
+    You will be provided with the following information:
 
-    {feature_name}
+    - **Feature Name**: {feature_name}
+    - **Context**: {context}
 
-  
-    You are a Software Development Process Manager, responsible for creating and overseeing the design review and approval process within the software development life cycle. Your task is to create a comprehensive design review and approval process for the feature: {feature_name}.
+    Using this information, create a design review process that includes:
 
-    The process should include the following components:
-
-    1. Stakeholder Feedback Mechanism
-       Establish a clear and efficient method for collecting, managing, and incorporating feedback from all relevant stakeholders, including product owners, developers, and end-users.
-
-    2. Design Validation Checklist
-       Develop a detailed checklist to validate the design against the project requirements, technical standards, and business goals. Ensure the checklist is thorough and covers all critical aspects of the design.
-
-    3. Approval Workflow and Sign-Off Process
-       Define a step-by-step approval workflow that outlines the key stages of review, the roles involved in each stage, and the criteria for sign-off. Include a timeline for each stage to ensure timely progression through the process.
-
-    4. Risk Assessment Methodology
-       Implement a risk assessment approach that identifies potential risks associated with the design and outlines strategies for mitigating these risks. Ensure this methodology is integrated into the review process.
-
-    5. Change Management Process for Design Updates
-       Create a process for managing changes to the design, including how updates are proposed, reviewed, approved, and documented. Ensure that this process minimizes disruption and maintains the integrity of the original design.
-
-    6. Documentation of Design Decisions and Their Rationale
-       Ensure that all design decisions are well-documented, including the rationale behind each decision. This documentation should be easily accessible for future reference and audit purposes.
-
-    7. Plan for Addressing and Incorporating Feedback
-       Develop a structured plan for how feedback will be addressed, prioritized, and incorporated into the design. Include timelines and responsible parties to ensure that feedback is handled effectively and efficiently.
+    - Stakeholder Feedback Mechanism
+      - Establish a clear and efficient method for collecting, managing, and incorporating feedback from all relevant stakeholders, including product owners, developers, and end-users.
+    - Design Validation Checklist
+      - Develop a detailed checklist to validate the design against the project requirements, technical standards, and business goals. Ensure the checklist is thorough and covers all critical aspects of the design.
+    - Approval Workflow and Sign-Off Process
+      - Define a step-by-step approval workflow that outlines the key stages of review, the roles involved in each stage, and the criteria for sign-off. Include a timeline for each stage to ensure timely progression through the process.
+    - Risk Assessment Methodology
+      - Implement a risk assessment approach that identifies potential risks associated with the design and outlines strategies for mitigating these risks. Ensure this methodology is integrated into the review process.
+    - Change Management Process for Design Updates
+      - Create a process for managing changes to the design, including how updates are proposed, reviewed, approved, and documented. Ensure that this process minimizes disruption and maintains the integrity of the original design.
+    - Documentation of Design Decisions and Their Rationale
+      - Ensure that all design decisions are well-documented, including the rationale behind each decision. This documentation should be easily accessible for future reference and audit purposes.
+    - Plan for Addressing and Incorporating Feedback
+      - Develop a structured plan for how feedback will be addressed, prioritized, and incorporated into the design. Include timelines and responsible parties to ensure that feedback is handled effectively and efficiently.
 
     Guidelines:
 
-    1. The process should be robust yet flexible, allowing for thorough review while accommodating necessary changes and updates.
-
-    2. Ensure that all stakeholders are clearly informed of their roles and responsibilities throughout the review and approval process.
-
-    3. Focus on maintaining alignment with the overall project goals and timelines while ensuring the design meets all quality standards.
-
-    4. Ensure that the process includes mechanisms for continuous improvement based on lessons learned from previous design reviews.
+    - The process should be robust yet flexible, allowing for thorough review while accommodating necessary changes and updates.
+    - Ensure that all stakeholders are clearly informed of their roles and responsibilities throughout the review and approval process.
+    - Focus on maintaining alignment with the overall project goals and timelines while ensuring the design meets all quality standards.
+    - Ensure that the process includes mechanisms for continuous improvement based on lessons learned from previous design reviews.
     return response in markdown format, do not use xml tags in the response

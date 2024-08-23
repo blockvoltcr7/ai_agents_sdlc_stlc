@@ -1,26 +1,21 @@
 import streamlit as st
 import yaml
 import os
-from utils.llm_utils import get_llm_client, process_text
+from utils.llm_utils import process_text
 from utils.streamlit_utils import init_session_state
-import utils.prompt_utils as prompt_utils
 from utils.logger import setup_logger
-from dotenv import load_dotenv
-from utils.cloud_arch_diagram_ import generate_cloud_architecture_diagram
 
-# Load environment variables and set up logger
-load_dotenv()
+# Set up the logger
 logger = setup_logger()
 
-@st.cache_data
 def load_prompts(file_path):
     try:
-        prompts = prompt_utils.load_prompts(file_path)
+        with open(file_path, 'r', encoding='utf-8') as file:
+            prompts = yaml.safe_load(file)
         logger.info(f"Successfully loaded prompts from {file_path}")
         return prompts
     except Exception as e:
         logger.error(f"Failed to load prompts from {file_path}: {str(e)}")
-        st.error(f"Failed to load prompts from {file_path}: {str(e)}")
         return None
 
 def sidebar_model_selection():
@@ -37,11 +32,43 @@ def sidebar_model_selection():
 
     model = st.sidebar.selectbox("Choose model:", model_options[api_choice], key="model")
     
-    temperature = st.sidebar.slider("Temperature:", min_value=0.0, max_value=1.0, value=0.5, step=0.1, key="temperature")
-    max_tokens = st.sidebar.slider("Max Tokens:", min_value=100, max_value=8192, value=2500, key="max_tokens")
-    top_p = st.sidebar.slider("Top P:", min_value=0.0, max_value=1.0, value=0.90, step=0.01, key="top_p")
+    temperature = st.sidebar.slider(
+        "Temperature:",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.7,
+        step=0.1,
+        key="temperature",
+        help="Controls randomness in the output. Higher values (e.g., 0.8) make the output more random, while lower values (e.g., 0.2) make it more focused and deterministic."
+    )
+    max_tokens = st.sidebar.slider(
+        "Max Tokens:",
+        min_value=100,
+        max_value=8192,
+        value=2500,
+        key="max_tokens",
+        help="The maximum number of tokens to generate in the response. One token is roughly 4 characters for normal English text."
+    )
+    top_p = st.sidebar.slider(
+        "Top P:",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.95,
+        step=0.01,
+        key="top_p",
+        help="An alternative to sampling with temperature, called nucleus sampling. The model considers the results of the tokens with top_p probability mass. 0.1 means only the tokens comprising the top 10% probability mass are considered."
+    )
     
+    logger.info(f"Selected API: {api_choice}, Model: {model}, Temperature: {temperature}, Max Tokens: {max_tokens}, Top P: {top_p}")
     return api_choice, model, temperature, max_tokens, top_p
+
+def write_to_markdown(doc_name, content):
+    output_dir = "../demo/Design_phase_output"
+    os.makedirs(output_dir, exist_ok=True)
+    file_path = os.path.join(output_dir, f"{doc_name}.md")
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write(content)
+    logger.info(f"Written {doc_name} to {file_path}")
 
 def generate_and_display(design_component, prompts, api_choice, model, temperature, max_tokens, top_p, context, **kwargs):
     if design_component not in prompts:
@@ -50,9 +77,6 @@ def generate_and_display(design_component, prompts, api_choice, model, temperatu
         return
     
     try:
-        # Add feature_name and context to kwargs
-        kwargs['feature_name'] = st.session_state.feature_name
-        kwargs['context'] = context
         initial_prompt = prompts[design_component]["prompt"].format(**kwargs)
     except KeyError as e:
         logger.error(f"Missing key in prompt formatting for {design_component}: {e}")
@@ -80,6 +104,9 @@ def generate_and_display(design_component, prompts, api_choice, model, temperatu
 
     st.subheader(f"Generated {design_component.replace('_', ' ').title()}:")
     st.write(st.session_state.design_docs[design_component])
+
+    # Write the content to a markdown file
+    write_to_markdown(design_component, st.session_state.design_docs[design_component])
 
     user_suggestions = st.text_area(f"Suggestions for {design_component.replace('_', ' ').title()} (optional):", height=100)
 
@@ -112,137 +139,6 @@ def regenerate_with_suggestions(design_component, user_suggestions, prompts, api
     except Exception as e:
         logger.error(f"Error regenerating content for {design_component}: {e}")
         st.error(f"An error occurred while regenerating content for {design_component}: {e}")
-
-def system_architecture():
-    st.header("System Architecture Design")
-    st.write("This section outlines the overall structure of the system.")
-    
-    if st.button("Generate System Architecture"):
-        with st.spinner("Generating System Architecture..."):
-            # Generate text content
-            generate_and_display("system_architecture", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-            
-            # Generate cloud architecture diagram
-            '''
-            before generating the diagram we need to process the text first.
-            we need to extract the text and break it down into components.
-            then we need to call claude anthropic opus (complex task) to break down system architecture in a language
-            that is in the language of the diagram in order for eraser io to understand it.
-            
-            we need to load llama index vector store with the eraser io knowledge base.
-            then we need to feed the system architecture text to the llama index vector store.
-            along with the text we need to ask the llm to create a system cloud architecture
-            using the eraser io language. 
-            
-            get three responses, 1 for each cloud provider (aws, azure, gcp).
-            
-            if this doesnt work then we will use a combination of crewai agents and load them with the expected structure and data to use.
-            the token size will be large there for try to use gemini flash because they can handle a large token size.
-            
-            '''
-            try:
-                diagram_path = generate_cloud_architecture_diagram(
-                    st.session_state.feature_name,
-                    additional_context=st.session_state.design_docs.get("system_architecture", "")
-                )
-                st.success("Cloud Architecture Diagram generated successfully!")
-                st.image(diagram_path, caption="Cloud Architecture Diagram", use_column_width=True)
-                st.session_state.design_docs["system_architecture_diagram"] = diagram_path
-            except Exception as e:
-                st.error(f"Failed to generate Cloud Architecture Diagram: {str(e)}")
-
-    if "system_architecture" in st.session_state.design_docs:
-        st.subheader("Generated System Architecture Description:")
-        st.write(st.session_state.design_docs["system_architecture"])
-
-    if "system_architecture_diagram" in st.session_state.design_docs:
-        st.subheader("Generated Cloud Architecture Diagram:")
-        st.image(st.session_state.design_docs["system_architecture_diagram"], caption="Cloud Architecture Diagram", use_column_width=True)
-
-    user_suggestions = st.text_area("Suggestions for System Architecture (optional):", height=100)
-
-    if st.button("Regenerate System Architecture with Suggestions"):
-        with st.spinner("Regenerating System Architecture..."):
-            regenerate_with_suggestions("system_architecture", user_suggestions, prompts, api_choice, model, temperature, max_tokens, top_p, context)
-            
-            # Regenerate cloud architecture diagram
-            try:
-                diagram_path = generate_cloud_architecture_diagram(
-                    st.session_state.feature_name,
-                    additional_context=st.session_state.design_docs.get("system_architecture", "")
-                )
-                st.success("Cloud Architecture Diagram regenerated successfully!")
-                st.session_state.design_docs["system_architecture_diagram"] = diagram_path
-                st.image(diagram_path, caption="Regenerated Cloud Architecture Diagram", use_column_width=True)
-            except Exception as e:
-                st.error(f"Failed to regenerate Cloud Architecture Diagram: {str(e)}")
-
-def database_design():
-    st.header("Database Design")
-    st.write("This section details the database structure and relationships.")
-    if st.button("Generate Database Design"):
-        generate_and_display("database_design", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def user_interface_design():
-    st.header("User Interface Design")
-    st.write("This section describes the user interface layout and interactions.")
-    if st.button("Generate User Interface Design"):
-        generate_and_display("user_interface_design", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def api_design():
-    st.header("API Design")
-    st.write("This section outlines the API structure and endpoints.")
-    if st.button("Generate API Design"):
-        generate_and_display("api_design", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def sequence_diagrams():
-    st.header("Sequence Diagrams")
-    st.write("This section provides sequence diagrams for key processes.")
-    if st.button("Generate Sequence Diagrams"):
-        generate_and_display("sequence_diagrams", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def security_design():
-    st.header("Security Design")
-    st.write("This section outlines the security measures and considerations.")
-    if st.button("Generate Security Design"):
-        generate_and_display("security_design", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def performance_considerations():
-    st.header("Performance Considerations")
-    st.write("This section discusses performance optimization strategies.")
-    if st.button("Generate Performance Considerations"):
-        generate_and_display("performance_considerations", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def testing_strategy():
-    st.header("Testing Strategy")
-    st.write("This section outlines the approach for testing the feature.")
-    if st.button("Generate Testing Strategy"):
-        generate_and_display("testing_strategy", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def design_review():
-    st.header("Design Review and Approval")
-    st.write("This section provides a summary and approval process for the design.")
-    if st.button("Generate Design Review"):
-        generate_and_display("design_review", prompts, api_choice, model, temperature, max_tokens, top_p, context)
-
-def is_component_generated(component_name):
-    return component_name in st.session_state.design_docs and st.session_state.design_docs[component_name]
-
-def update_progress(design_components):
-    total_components = len(design_components)
-    completed_components = sum(1 for component in design_components if is_component_generated(component.__name__))
-    progress = completed_components / total_components
-    st.sidebar.progress(progress)
-    st.sidebar.text(f"Progress: {completed_components}/{total_components} components completed")
-
-    # Detailed component status
-    st.sidebar.header("Design Progress")
-    for component in design_components:
-        component_name = component.__name__
-        if is_component_generated(component_name):
-            st.sidebar.success(f"✅ {component_name.replace('_', ' ').title()}")
-        else:
-            st.sidebar.error(f"❌ {component_name.replace('_', ' ').title()}")
 
 def main():
     st.title("Design Phase")
@@ -281,53 +177,115 @@ def main():
     planning_docs = st.session_state.get("planning_docs", {})
     requirements = st.session_state.get("requirements", {})
     
-    # Combine context
-    context = "Planning Phase Summary:\n"
-    for doc_name, content in planning_docs.items():
-        context += f"{doc_name.replace('_', ' ').title()}:\n{content}\n\n"
-    
-    context += "Requirements Phase Summary:\n"
-    for req_type, content in requirements.items():
-        context += f"{req_type.replace('_', ' ').title()}:\n{content}\n\n"
+    # Create specific contexts for different design components
+    contexts = {
+        "system_architecture": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            planning_docs.get("project_charter", ""),
+            planning_docs.get("product_roadmap", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("non_functional_requirements", ""),
+            requirements.get("technical_requirements", "")
+        ]),
+        "database_design": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("data_requirements", ""),
+            requirements.get("security_requirements", "")
+        ]),
+        "user_interface_design": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            planning_docs.get("market_analysis", ""),
+            requirements.get("user_interface_requirements", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("non_functional_requirements", "")
+        ]),
+        "api_design": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            planning_docs.get("product_roadmap", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("technical_requirements", ""),
+            requirements.get("performance_requirements", "")
+        ]),
+        "sequence_diagrams": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("technical_requirements", "")
+        ]),
+        "security_design": " ".join([
+            planning_docs.get("risk_register", ""),
+            requirements.get("security_requirements", ""),
+            requirements.get("non_functional_requirements", "")
+        ]),
+        "performance_considerations": " ".join([
+            planning_docs.get("market_analysis", ""),
+            planning_docs.get("product_roadmap", ""),
+            requirements.get("performance_requirements", ""),
+            requirements.get("non_functional_requirements", "")
+        ]),
+        "testing_strategy": " ".join([
+            planning_docs.get("risk_register", ""),
+            planning_docs.get("project_charter", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("non_functional_requirements", ""),
+            requirements.get("technical_requirements", ""),
+            requirements.get("user_interface_requirements", ""),
+            requirements.get("security_requirements", ""),
+            requirements.get("performance_requirements", "")
+        ]),
+        "design_review": " ".join([
+            planning_docs.get("feature_proposal", ""),
+            planning_docs.get("market_analysis", ""),
+            planning_docs.get("project_charter", ""),
+            planning_docs.get("product_roadmap", ""),
+            planning_docs.get("risk_register", ""),
+            requirements.get("functional_requirements", ""),
+            requirements.get("non_functional_requirements", ""),
+            requirements.get("technical_requirements", ""),
+            requirements.get("user_interface_requirements", ""),
+            requirements.get("security_requirements", ""),
+            requirements.get("performance_requirements", "")
+        ])
+    }
 
     # Display context in sidebar
     st.sidebar.header("Context from Previous Phases")
     with st.sidebar.expander("View Context"):
-        st.write(context)
+        for key, value in contexts.items():
+            st.subheader(key.replace("_", " ").title())
+            st.write(value)
 
     design_components = [
-        system_architecture, database_design, user_interface_design,
-        api_design, sequence_diagrams, security_design, performance_considerations,
-        testing_strategy, design_review
+        "system_architecture", "database_design", "user_interface_design",
+        "api_design", "sequence_diagrams", "security_design", "performance_considerations",
+        "testing_strategy", "design_review"
     ]
 
-    init_session_state("design_docs", {component.__name__: "" for component in design_components})
+    init_session_state("design_docs", {component: "" for component in design_components})
 
     api_choice, model, temperature, max_tokens, top_p = sidebar_model_selection()
 
     # Individual section generation
     for component in design_components:
-        with st.expander(component.__name__.replace("_", " ").title()):
-            if not is_component_generated(component.__name__):
-                st.write(f"Click the button below to generate content for {component.__name__.replace('_', ' ').title()}")
+        with st.expander(component.replace("_", " ").title()):
+            if not st.session_state.design_docs[component]:
+                st.write(f"Click the button below to generate content for {component.replace('_', ' ').title()}")
                 if st.button(
-                    f"Generate {component.__name__.replace('_', ' ').title()}",
-                    key=f"generate_{component.__name__}",
-                    help=f"Click to generate content for the {component.__name__.replace('_', ' ').title()} section using AI."
+                    f"Generate {component.replace('_', ' ').title()}",
+                    key=f"generate_{component}",
+                    help=f"Click to generate content for the {component.replace('_', ' ').title()} section using AI."
                 ):
-                    with st.spinner(f"Generating {component.__name__.replace('_', ' ').title()}..."):
-                        generate_and_display(component.__name__, prompts, api_choice, model, temperature, max_tokens, top_p, context)
-                    update_progress(design_components)
+                    with st.spinner(f"Generating {component.replace('_', ' ').title()}..."):
+                        generate_and_display(component, prompts, api_choice, model, temperature, max_tokens, top_p, contexts[component])
             else:
-                st.write(st.session_state.design_docs[component.__name__])
+                st.write(st.session_state.design_docs[component])
                 if st.button(
-                    f"Regenerate {component.__name__.replace('_', ' ').title()}",
-                    key=f"regenerate_{component.__name__}",
-                    help=f"Click to regenerate content for the {component.__name__.replace('_', ' ').title()} section. This will overwrite the existing content."
+                    f"Regenerate {component.replace('_', ' ').title()}",
+                    key=f"regenerate_{component}",
+                    help=f"Click to regenerate content for the {component.replace('_', ' ').title()} section. This will overwrite the existing content."
                 ):
-                    with st.spinner(f"Regenerating {component.__name__.replace('_', ' ').title()}..."):
-                        generate_and_display(component.__name__, prompts, api_choice, model, temperature, max_tokens, top_p, context)
-                    update_progress(design_components)
+                    with st.spinner(f"Regenerating {component.replace('_', ' ').title()}..."):
+                        generate_and_display(component, prompts, api_choice, model, temperature, max_tokens, top_p, contexts[component])
 
     st.header("Review and Finalize")
     
@@ -336,13 +294,13 @@ def main():
         "Review All Design Components",
         help="Click to view all generated design components in one place."
     ):
-        generated_components = [comp for comp in design_components if is_component_generated(comp.__name__)]
+        generated_components = [comp for comp in design_components if st.session_state.design_docs[comp]]
         if not generated_components:
             st.warning("No design components have been generated yet.")
         else:
             for component in generated_components:
-                st.subheader(component.__name__.replace("_", " ").title())
-                st.write(st.session_state.design_docs[component.__name__])
+                st.subheader(component.replace("_", " ").title())
+                st.write(st.session_state.design_docs[component])
                 st.markdown("---")
 
     # Finalize Design Phase
@@ -350,7 +308,7 @@ def main():
         "Finalize Design Phase",
         help="Click when you're satisfied with all generated components to mark the design phase as complete."
     ):
-        generated_components = [comp for comp in design_components if is_component_generated(comp.__name__)]
+        generated_components = [comp for comp in design_components if st.session_state.design_docs[comp]]
         if not generated_components:
             st.warning("Please generate at least one design component before finalizing.")
         elif len(generated_components) < len(design_components):
@@ -363,10 +321,10 @@ def main():
             st.success("Design phase completed! All documents have been saved.")
 
     # Download Design Document
-    generated_components = [comp for comp in design_components if is_component_generated(comp.__name__)]
+    generated_components = [comp for comp in design_components if st.session_state.design_docs[comp]]
     if generated_components:
         design_doc = "# Design Document\n\n"
-        design_doc += "\n\n".join([f"## {comp.__name__.replace('_', ' ').title()}\n\n{st.session_state.design_docs[comp.__name__]}" for comp in generated_components])
+        design_doc += "\n\n".join([f"## {comp.replace('_', ' ').title()}\n\n{st.session_state.design_docs[comp]}" for comp in generated_components])
         
         st.download_button(
             label="Download Design Document",
@@ -390,8 +348,6 @@ def main():
                     del st.session_state[key]
             st.success("Design Phase has been reset.")
             st.rerun()
-
-    update_progress(design_components)  # Final update to ensure sidebar is current
 
 if __name__ == "__main__":
     main()
