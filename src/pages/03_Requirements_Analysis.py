@@ -81,7 +81,7 @@ def generate_and_display(req_type, prompts, api_choice, model, temperature, max_
     
     # Add information about which planning documents were used
     if req_type in ["functional_requirements", "non_functional_requirements"]:
-        st.info("This requirement is based on the Feature Proposal, Market Analysis, and Risk Register from the planning phase.")
+        st.info("This requirement is based on the Feature Proposal, Market Analysis, business_case, and Risk Register from the planning phase.")
     
     initial_prompt = prompts[req_type]["prompt"].format(
         context=kwargs.get('planning_context', ''),
