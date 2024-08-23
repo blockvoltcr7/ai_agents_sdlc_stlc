@@ -25,7 +25,7 @@ def load_prompts(file_path):
 
 def sidebar_model_selection():
     st.sidebar.header("Model Selection")
-    api_choice = st.sidebar.selectbox("Choose API:", ["Claude", "Gemini", "OpenAI", "Groq", "Meta-Llama"], key="api_choice")
+    api_choice = st.sidebar.selectbox("Choose API:", ["OpenAI", "Gemini", "Claude", "Groq", "Meta-Llama"], key="api_choice")
  
     model_options = {
         "Groq": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"],

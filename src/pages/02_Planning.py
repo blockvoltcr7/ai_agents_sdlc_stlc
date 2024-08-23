@@ -33,7 +33,7 @@ def load_prompts(file_path):
 
 def sidebar_model_selection():
     st.sidebar.header("Model Selection")
-    api_choice = st.sidebar.selectbox("Choose API:", ["Claude", "Gemini", "OpenAI", "Groq", "Meta-Llama"], key="api_choice")
+    api_choice = st.sidebar.selectbox("Choose API:", ["OpenAI", "Gemini", "Claude", "Groq", "Meta-Llama"], key="api_choice")
  
     model_options = {
         "Groq": ["llama-3.1-70b-versatile", "llama-3.1-8b-instant", "llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"],
@@ -58,7 +58,7 @@ def sidebar_model_selection():
         "Max Tokens:",
         min_value=100,
         max_value=8192,
-        value=1024,
+        value=2500,
         key="max_tokens",
         help="The maximum number of tokens to generate in the response. One token is roughly 4 characters for normal English text."
     )
@@ -262,6 +262,15 @@ def planning_phase():
         for key in st.session_state.keys():
             del st.session_state[key]
         st.rerun()
+
+    # Add a download button for the design document
+    if "design_document" in st.session_state:
+        st.download_button(
+            label="Download Design Document",
+            data=st.session_state.design_document,
+            file_name="design_document.txt",
+            mime="text/plain"
+        )
 
 def main():
     logger.info("Starting the Planning Phase application")

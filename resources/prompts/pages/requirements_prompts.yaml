@@ -1,220 +1,145 @@
 functional_requirements:
   prompt: >
-    ### Instruction ###
-
     You are an expert business analyst.
 
-    Your task is to review the provided document and identify six high-priority business requirements that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
+    Task: Review the provided document and identify six high-priority business requirements that meet the SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound).
 
-    Context
+    Steps:
 
-    {context} 
+      1.	Analyze the Documentation: Thoroughly examine the document to extract business requirements.
+      2.	SMART Criteria:
+      -	Specific: Clearly defined and unambiguous.
+      -	Measurable: Quantifiable or has clear indicators of progress.
+      -	Achievable: Realistic given available resources and constraints.
+      -	Relevant: Directly aligned with business goals or objectives.
+      -	Time-bound: Includes a defined timeline or deadline.
+      3.	Validation: After identifying the requirements, evaluate each one for potential risks or dependencies that could impact its success. Include risk mitigation strategies if applicable.
+      4.	Prioritization: Rank the identified requirements based on their impact on business goals and the feasibility of implementation.
+      5.	Clarity and Precision: Ensure that the language used in each requirement is clear, concise, and free of jargon that could lead to misinterpretation.
+      6.	Output the Top Six Requirements: Select and list the six requirements with the highest business value, including the following details for each:
+      -	Requirement: A detailed description of the requirement.
+      -	Rationale: Explain why this requirement is critical to the business goals.
+      -	Dependencies: List any dependencies or prerequisites for this requirement.
+      -	Risks: Identify potential risks associated with the requirement and suggest mitigation strategies.
+      -	Priority Level: Assign a priority level (High, Medium, Low) based on impact and feasibility.
 
-    Task
+    Output Format: Provide the output in markdown format.
 
-    1. Carefully analyze the context to extract business requirements.
-    2. Ensure each requirement is:
-        - Specific: Clearly defined and unambiguous.
-        - Measurable: Quantifiable or has a clear indicator of progress.
-        - Achievable: Realistic given available resources and constraints.
-        - Relevant: Directly aligned with the business goals or objectives.
-        - Time-bound: Has a defined timeline or deadline for achievement.
-    3. List the top six requirements with the highest business value.
+    Add-ons for Enhancing Quality:
 
-    Output Format
+      1.	Consistency Check: Ensure that all identified requirements are consistent with each other and do not contradict or overlap.
+      2.	Stakeholder Alignment: Consider the perspectives of different stakeholders and ensure the requirements align with their needs and expectations.
+      3.	Scalability: Assess whether the requirement is scalable in the Documentation of potential future growth or changes in the business environment.
+      4.	Compliance: Verify that the requirements comply with relevant industry standards, regulations, or internal policies.
+   
+    Documentation:
+    {context}
 
-        - Requirement 1: [Detailed description]
-        - Requirement 2: [Detailed description]
-        - Requirement 3: [Detailed description]
-        - Requirement 4: [Detailed description]
-        - Requirement 5: [Detailed description]
-        - Requirement 6: [Detailed description]
 
-    expected output: format must be in markdown format.
+
 
 
 non_functional_requirements:
   prompt: >
-    <Instruction>
-    You are an expert business analyst.
-    Your task is to review the provided document and identify six high-priority non-functional requirements (NFRs) that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
-    </Instruction>
+    You are an expert business analyst. Your task is to review the provided document and identify six high-priority non-functional requirements (NFRs) that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
 
-    <Context>
-     {context}
-    </Context>
+    Documentation: 
+      {context}
 
-    <Task>
-      <Step1>
-        Carefully analyze the context to extract non-functional requirements.
-      </Step1>
-      <Step2>
-        Ensure each requirement is:
-        <Specific>Clearly defined and unambiguous.</Specific>
-        <Measurable>Quantifiable or has a clear indicator of performance or quality.</Measurable>
-        <Achievable>Realistic given available resources and constraints.</Achievable>
-        <Relevant>Directly aligned with the business goals or objectives, and supports the functional requirements.</Relevant>
-        <TimeBound>Has a defined timeline or deadline for achievement.</TimeBound>
-      </Step2>
-      <Step3>
-        List the top six non-functional requirements with the highest business value.
-      </Step3>
-    </Task>
+    Task:
+      - Carefully analyze the Documentation to extract non-functional requirements.
+      - Ensure each requirement is:
+        - Specific: Clearly defined and unambiguous.
+        - Measurable: Quantifiable or has a clear indicator of performance or quality.
+        - Achievable: Realistic given available resources and constraints.
+        - Relevant: Directly aligned with the business goals or objectives, and supports the functional requirements.
+        - Time-bound: Has a defined timeline or deadline for achievement.
+      - List the top six non-functional requirements with the highest business value.
 
-    <OutputFormat>
-      <Requirement1>
-        <Description>[Detailed description of the first NFR]</Description>
-      </Requirement1>
-      <Requirement2>
-        <Description>[Detailed description of the second NFR]</Description>
-      </Requirement2>
-      <Requirement3>
-        <Description>[Detailed description of the third NFR]</Description>
-      </Requirement3>
-      <Requirement4>
-        <Description>[Detailed description of the fourth NFR]</Description>
-      </Requirement4>
-      <Requirement5>
-        <Description>[Detailed description of the fifth NFR]</Description>
-      </Requirement5>
-      <Requirement6>
-        <Description>[Detailed description of the sixth NFR]</Description>
-      </Requirement6>
-    </OutputFormat>
+    OutputFormat:
+      - Requirement 1: [Detailed description of the first NFR]
+      - Requirement 2: [Detailed description of the second NFR]
+      - Requirement 3: [Detailed description of the third NFR]
+      - Requirement 4: [Detailed description of the fourth NFR]
+      - Requirement 5: [Detailed description of the fifth NFR]
+      - Requirement 6: [Detailed description of the sixth NFR]
 
-    <Note>
-    Ensure your analysis is thorough and that each non-functional requirement adheres to the SMART criteria.
-    expected output: format must be in markdown format.
-    </Note>
-
-    return response in markdown format, do not use xml tags in the response
+    Note: 
+      Ensure your analysis is thorough and that each non-functional requirement adheres to the SMART criteria.
+      Return response in markdown format, do not use XML tags in the response.
 
 technical_requirements:
   prompt: >
-    <Instruction>
-    You are an expert business analyst.
-    Your task is to review the provided document and identify six high-priority technical requirements that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
-    </Instruction>
+    You are an expert business analyst. Your task is to review the provided document and identify six high-priority technical requirements that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
 
-    <Context>
-    {context}
-    </Context>
+    Documentation: 
+      {context}
 
-    <Task>
-      <Step1>
-        Carefully analyze the context to extract technical requirements.
-      </Step1>
-      <Step2>
-        Ensure each requirement is:
-        <Specific>Clearly defined with precise technical details.</Specific>
-        <Measurable>Quantifiable in terms of performance, capacity, or other technical metrics.</Measurable>
-        <Achievable>Realistic given the current technical capabilities and resources.</Achievable>
-        <Relevant>Aligned with the overall system architecture and business objectives.</Relevant>
-        <TimeBound>Has a clear timeline or milestones for implementation.</TimeBound>
-      </Step2>
-      <Step3>
-        List the top six technical requirements with the highest business value.
-      </Step3>
-    </Task>
+    Task:
+      - Carefully analyze the Documentation to extract technical requirements.
+      - Ensure each requirement is:
+        - Specific: Clearly defined with precise technical details.
+        - Measurable: Quantifiable in terms of performance, capacity, or other technical metrics.
+        - Achievable: Realistic given the current technical capabilities and resources.
+        - Relevant: Aligned with the overall system architecture and business objectives.
+        - Time-bound: Has a clear timeline or milestones for implementation.
+      - List the top six technical requirements with the highest business value.
 
-    <OutputFormat>
-      <Requirement1>
-        <Description>[Detailed description of the first technical requirement]</Description>
-      </Requirement1>
-      <Requirement2>
-        <Description>[Detailed description of the second technical requirement]</Description>
-      </Requirement2>
-      <Requirement3>
-        <Description>[Detailed description of the third technical requirement]</Description>
-      </Requirement3>
-      <Requirement4>
-        <Description>[Detailed description of the fourth technical requirement]</Description>
-      </Requirement4>
-      <Requirement5>
-        <Description>[Detailed description of the fifth technical requirement]</Description>
-      </Requirement5>
-      <Requirement6>
-        <Description>[Detailed description of the sixth technical requirement]</Description>
-      </Requirement6>
-    </OutputFormat>
+    OutputFormat:
+      - Requirement 1: [Detailed description of the first technical requirement]
+      - Requirement 2: [Detailed description of the second technical requirement]
+      - Requirement 3: [Detailed description of the third technical requirement]
+      - Requirement 4: [Detailed description of the fourth technical requirement]
+      - Requirement 5: [Detailed description of the fifth technical requirement]
+      - Requirement 6: [Detailed description of the sixth technical requirement]
 
-    <Note>
-    Ensure your analysis is thorough and that each technical requirement adheres to the SMART criteria.
-    </Note>
-
-    return response in markdown format, do not use xml tags in the response
+    Note: 
+      Ensure your analysis is thorough and that each technical requirement adheres to the SMART criteria.
+      Return response in markdown format, do not use XML tags in the response.
 
 user_interface_requirements:
   prompt: >
-    <Instruction>
-    You are an expert business analyst.
-    Your task is to review the provided document and identify six high-priority user interface (UI) requirements that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
-    </Instruction>
+    You are an expert business analyst. Your task is to review the provided document and identify six high-priority user interface (UI) requirements that align with the SMART criteria (Specific, Measurable, Achievable, Relevant, and Time-bound).
 
-    <Context>
-    {context}
-    </Context>
+    Documentation: 
+      {context}
 
-    <Task>
-      <Step1>
-        Carefully analyze the context to extract user interface requirements.
-      </Step1>
-      <Step2>
-        Ensure each requirement is:
-        <Specific>Clearly defined with detailed descriptions of UI elements or design principles.</Specific>
-        <Measurable>Quantifiable in terms of usability metrics, user satisfaction scores, or interaction times.</Measurable>
-        <Achievable>Feasible within the current design and development constraints.</Achievable>
-        <Relevant>Aligned with user needs, business objectives, and overall system design.</Relevant>
-        <TimeBound>Has a clear timeline for design, testing, and implementation.</TimeBound>
-      </Step2>
-      <Step3>
-        List the top six user interface requirements with the highest business value.
-      </Step3>
-    </Task>
+    Task:
+      - Carefully analyze the Documentation to extract user interface requirements.
+      - Ensure each requirement is:
+        - Specific: Clearly defined with detailed descriptions of UI elements or design principles.
+        - Measurable: Quantifiable in terms of usability metrics, user satisfaction scores, or interaction times.
+        - Achievable: Feasible within the current design and development constraints.
+        - Relevant: Aligned with user needs, business objectives, and overall system design.
+        - Time-bound: Has a clear timeline for design, testing, and implementation.
+      - List the top six user interface requirements with the highest business value.
 
-    <OutputFormat>
-      <Requirement1>
-        <Description>[Detailed description of the first UI requirement]</Description>
-      </Requirement1>
-      <Requirement2>
-        <Description>[Detailed description of the second UI requirement]</Description>
-      </Requirement2>
-      <Requirement3>
-        <Description>[Detailed description of the third UI requirement]</Description>
-      </Requirement3>
-      <Requirement4>
-        <Description>[Detailed description of the fourth UI requirement]</Description>
-      </Requirement4>
-      <Requirement5>
-        <Description>[Detailed description of the fifth UI requirement]</Description>
-      </Requirement5>
-      <Requirement6>
-        <Description>[Detailed description of the sixth UI requirement]</Description>
-      </Requirement6>
-    </OutputFormat>
+    OutputFormat:
+      - Requirement 1: [Detailed description of the first UI requirement]
+      - Requirement 2: [Detailed description of the second UI requirement]
+      - Requirement 3: [Detailed description of the third UI requirement]
+      - Requirement 4: [Detailed description of the fourth UI requirement]
+      - Requirement 5: [Detailed description of the fifth UI requirement]
+      - Requirement 6: [Detailed description of the sixth UI requirement]
 
-    <Note>
-    Ensure your analysis is thorough and that each UI requirement adheres to the SMART criteria.
-    </Note>
+    Note: 
+      Ensure your analysis is thorough and that each UI requirement adheres to the SMART criteria.
+      Return response in markdown format, do not use XML tags in the response.
 
-    return response in markdown format, do not use xml tags in the response
 
 security_requirements:
   prompt: >
     You are an expert business analyst specializing in creating security requirements. Your task is to analyze the given context and create specific, measurable, achievable, relevant, and time-bound (SMART) security requirements. You will then list the top 6 high business value requirements based on your analysis.
 
-    First, carefully read and analyze the following context:
+    Documentation: 
+      {context}
 
-    <context>
-    {context}
-    </context>
-
-    As you analyze the context, consider the following aspects:
-    1. The nature of the business or organization
-    2. Potential security threats and vulnerabilities
-    3. Existing security measures, if any
-    4. Regulatory compliance requirements
-    5. Stakeholder concerns and priorities
+    As you analyze the Documentation, consider the following aspects:
+    - The nature of the business or organization
+    - Potential security threats and vulnerabilities
+    - Existing security measures, if any
+    - Regulatory compliance requirements
+    - Stakeholder concerns and priorities
 
     When creating security requirements, ensure they adhere to the SMART criteria:
     - Specific: Clearly define what needs to be accomplished
@@ -224,13 +149,13 @@ security_requirements:
     - Time-bound: Specify a timeframe for implementation or achievement
 
     Based on your analysis, create a list of the top 6 high business value security requirements. For each requirement:
-    1. Provide a clear and concise description
-    2. Explain how it meets the SMART criteria
-    3. Justify its high business value
+    - Provide a clear and concise description
+    - Explain how it meets the SMART criteria
+    - Justify its high business value
 
     Present your analysis and requirements in the following format:
 
-    Briefly summarize your analysis of the context, highlighting key security concerns and business priorities.
+    Briefly summarize your analysis of the Documentation, highlighting key security concerns and business priorities.
 
     1. [Requirement 1]
        Description: [Concise description of the requirement]
@@ -256,21 +181,21 @@ security_requirements:
 
     6. [Requirement 6]
        [Follow the same format as Requirement 1]
-  
 
-    Ensure that your requirements are tailored to the specific context provided
+    Ensure that your requirements are tailored to the specific Documentation provided.
 
-    return response in markdown format, do not use xml tags in the response
+    Return response in markdown format, do not use xml tags in the response.
+
 
 performance_requirements: 
   prompt: >
     You are an expert business analyst specializing in creating performance requirements. Your task is to analyze the given context and create specific, measurable, achievable, relevant, and time-bound (SMART) performance requirements. You will then list the top 6 high business value requirements based on your analysis.
 
-    First, carefully read and analyze the following context:
+    First, carefully read and analyze the following Documentation:
 
     {context}
 
-    As you analyze the context, consider the following aspects:
+    As you analyze the Documentation, consider the following aspects:
     1. The nature of the business or organization
     2. Current performance levels and bottlenecks
     3. Key performance indicators (KPIs) relevant to the business
@@ -291,7 +216,7 @@ performance_requirements:
 
     Present your analysis and requirements in the following format:
 
-    Briefly summarize your analysis of the context, highlighting key performance concerns and business priorities.
+    Briefly summarize your analysis of the Documentation, highlighting key performance concerns and business priorities.
 
     1. [Requirement 1]
        Description: [Concise description of the requirement]
@@ -318,6 +243,6 @@ performance_requirements:
     6. [Requirement 6]
        [Follow the same format as Requirement 1]
 
-    Ensure that your requirements are tailored to the specific context provided and focus on improving performance aspects of the business or system described.
+    Ensure that your requirements are tailored to the specific Documentation provided and focus on improving performance aspects of the business or system described.
 
     return response in markdown format, do not use xml tags in the response

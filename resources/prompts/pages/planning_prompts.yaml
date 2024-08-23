@@ -3,9 +3,7 @@ feature_proposal: >
 
   Here is the feature idea you will be working with:
 
-  <feature_idea>
   {feature_idea}
-  </feature_idea>
 
   Using this feature idea, create a detailed feature proposal document. Follow these guidelines:
 
@@ -53,14 +51,10 @@ market_analysis: >
   You are an expert business analyst for a financial wealth management company. Your task is to generate a comprehensive market analysis document based on a proposed feature idea and a list of competitors. Follow these instructions carefully to create your analysis:
 
   First, review the feature idea:
-  <feature_idea>
   {feature_idea}
-  </feature_idea>
 
   Next, consider the list of competitors:
-  <competitors>
   {competitors}
-  </competitors>
 
   Now, create a market analysis document with the following structure:
 
@@ -127,16 +121,13 @@ market_analysis: >
   return response in markdown format
 
 business_case: >
-  You are tasked with creating a comprehensive business case document for a proposed feature idea. This document will help stakeholders understand the value and potential impact of implementing the feature. Follow these instructions carefully to generate a well-structured and informative business case.
+  You are tasked with creating a comprehensive business case document for a proposed feature idea. 
+  This document will help stakeholders understand the value and potential impact of implementing the feature. 
+  Follow these instructions carefully to generate a well-structured and informative business case.
 
-  You will be provided with two input variables:
-  <feature_idea>
-  {feature_idea}
-  </feature_idea>
+  Feature idea: {feature_idea}
 
-  <expected_benefits>
-  {expected_benefits}
-  </expected_benefits>
+  Expected benefits: {expected_benefits}
 
   Using these inputs, create a detailed business case document with the following structure:
 
@@ -187,7 +178,6 @@ business_case: >
 
   Here's an example of how your output should be structured:
 
-  ```markdown
   # Business Case: [Title]
 
   ## Feature Description
@@ -233,15 +223,9 @@ business_case: >
 project_charter: >
   You are tasked with creating a comprehensive Project Charter based on a given feature idea and project objectives. The Project Charter will serve as a foundational document for the project, outlining its purpose, scope, objectives, and other crucial elements.
 
-  Here are the inputs you will be working with:
+  Feature idea: {feature_idea}
 
-  <feature_idea>
-  {feature_idea}
-  </feature_idea>
-
-  <project_objectives>
-  {project_objectives}
-  </project_objectives>
+  Project objectives: {project_objectives}
 
   Using these inputs, you will create a Project Charter with the following structure:
 
@@ -278,14 +262,9 @@ project_charter: >
 product_roadmap: >
   You are a product manager tasked with creating a detailed product roadmap for a new feature idea. Your goal is to generate a comprehensive document that outlines the development and implementation process for the given feature over the specified timeframe.
 
-  You will be provided with two inputs:
-  <feature_idea>
-  {feature_idea}
-  </feature_idea>
+  feature idea: {feature_idea}
 
-  <timeframe>
-  {timeframe}
-  </timeframe>
+  timeframe: {timeframe}
 
   Follow these instructions to create the product roadmap:
 
@@ -315,64 +294,57 @@ product_roadmap: >
 
 
 stakeholder_analysis: >
-  You are tasked with creating a comprehensive stakeholder analysis document. This document will help identify and analyze key stakeholders involved in a project or initiative. Follow these instructions carefully to generate the analysis:
+   You are tasked with creating a comprehensive stakeholder analysis document. This document will help identify and analyze key stakeholders involved in a project or initiative. Follow these instructions carefully to generate the analysis:
 
-  1. Begin by processing the list of stakeholders provided in the {{stakeholders}} input. This list contains the roles of various individuals or groups involved in the project.
+   1. Begin by processing the list of stakeholders provided in the `{{stakeholders}}` input. This list contains the roles of various individuals or groups involved in the project.
 
-  2. Create a detailed stakeholder analysis document with the following structure:
+   2. Create a detailed stakeholder analysis document with the following structure:
 
-  <stakeholder_analysis>
-  <header>Stakeholder Analysis</header>
+   ### Stakeholder Analysis
 
-  <overview>
-  Provide a brief introduction explaining the purpose of the stakeholder analysis and its importance for the project. Mention that the analysis covers a {{timeframe}} period.
-  </overview>
+   #### Overview
+   Provide a brief introduction explaining the purpose of the stakeholder analysis and its importance for the project. Mention that the analysis covers a `{{timeframe}}` period.
 
-  <stakeholder_details>
-  For each stakeholder in the {{stakeholders}} list, create a section with the following information:
-  - Role/Title: The stakeholder's position or role
-  - Interest: Assess their level of interest in the project (High, Medium, or Low)
-  - Influence: Evaluate their level of influence on the project (High, Medium, or Low)
-  - Key Responsibilities: List 2-3 main responsibilities or contributions of this stakeholder
-  - Engagement Strategy: Suggest how to best engage with this stakeholder throughout the {{timeframe}}
-  </stakeholder_details>
+   #### Stakeholder Details
+   For each stakeholder in the `{{stakeholders}}` list, create a section with the following information:
+   - **Role/Title**: The stakeholder's position or role
+   - **Interest**: Assess their level of interest in the project (High, Medium, or Low)
+   - **Influence**: Evaluate their level of influence on the project (High, Medium, or Low)
+   - **Key Responsibilities**: List 2-3 main responsibilities or contributions of this stakeholder
+   - **Engagement Strategy**: Suggest how to best engage with this stakeholder throughout the `{{timeframe}}`
 
-  <summary_table>
-  Create a table summarizing all stakeholders, including columns for Role/Title, Interest, Influence, Key Responsibilities, and Engagement Strategy.
-  </summary_table>
+   #### Summary Table
+   Create a table summarizing all stakeholders, including columns for Role/Title, Interest, Influence, Key Responsibilities, and Engagement Strategy.
 
-  <time_considerations>
-  Discuss how the {{timeframe}} might affect stakeholder involvement, priorities, or the overall project dynamics.
-  </time_considerations>
+   #### Time Considerations
+   Discuss how the `{{timeframe}}` might affect stakeholder involvement, priorities, or the overall project dynamics.
 
-  <conclusion>
-  Summarize the key findings from the stakeholder analysis and provide recommendations for effective stakeholder management throughout the {{timeframe}}.
-  </conclusion>
-  </stakeholder_analysis>
+   #### Conclusion
+   Summarize the key findings from the stakeholder analysis and provide recommendations for effective stakeholder management throughout the `{{timeframe}}`.
 
-  3. Use professional language and maintain a consistent tone throughout the document.
+   3. Use professional language and maintain a consistent tone throughout the document.
 
-  4. Ensure that your analysis is balanced, considering both the potential positive contributions and challenges associated with each stakeholder.
+   4. Ensure that your analysis is balanced, considering both the potential positive contributions and challenges associated with each stakeholder.
 
-  5. If the {{stakeholders}} list contains more than 10 stakeholders, focus on the top 10 most influential or critical stakeholders for a more concise analysis.
+   5. If the `{{stakeholders}}` list contains more than 10 stakeholders, focus on the top 10 most influential or critical stakeholders for a more concise analysis.
 
-  6. Use bullet points, subheadings, and tables to improve readability and organization of the document.
+   6. Use bullet points, subheadings, and tables to improve readability and organization of the document.
 
-  7. Provide your complete stakeholder analysis document within the <stakeholder_analysis> tags, following the structure outlined above.
+   7. Provide your complete stakeholder analysis document, following the structure outlined above.
 
 risk_register: >
   You are tasked with creating a comprehensive risk register document based on a list of potential risks provided by the user. The purpose of this document is to identify, assess, and plan for potential risks in a project or organization.
 
-  First, carefully read and analyze the list of potential risks provided in the {{potential_risks}} input. Each risk should be treated as a separate entry in the risk register.
+  First, carefully read and analyze the list of potential risks provided in the `{potential_risks}` input. Each risk should be treated as a separate entry in the risk register.
 
   For each risk, create an entry in the risk register with the following structure:
 
-  1. Risk Title: A brief, descriptive title for the risk
-  2. Description: The full description of the risk as provided in the input
-  3. Impact: Assess the potential impact as High, Medium, or Low
-  4. Likelihood: Assess the likelihood of occurrence as High, Medium, or Low
-  5. Mitigation Strategies: Develop 2-3 strategies to mitigate or manage the risk
-  6. Owner: Assign a team or role responsible for managing this risk
+  1. **Risk Title**: A brief, descriptive title for the risk
+  2. **Description**: The full description of the risk as provided in the input
+  3. **Impact**: Assess the potential impact as High, Medium, or Low
+  4. **Likelihood**: Assess the likelihood of occurrence as High, Medium, or Low
+  5. **Mitigation Strategies**: Develop 2-3 strategies to mitigate or manage the risk
+  6. **Owner**: Assign a team or role responsible for managing this risk
 
   When assessing impact and likelihood, use your best judgment based on the description provided. Consider the potential consequences and the context of the risk.
 
@@ -380,39 +352,33 @@ risk_register: >
 
   Format your output as follows:
 
-  <risk_register>
-  <risk>
-  <title>[Risk Title]</title>
-  <description>[Full risk description]</description>
-  <impact>[High/Medium/Low]</impact>
-  <likelihood>[High/Medium/Low]</likelihood>
-  <mitigation_strategies>
-  - [Strategy 1]
-  - [Strategy 2]
-  - [Strategy 3]
-  </mitigation_strategies>
-  <owner>[Responsible team or role]</owner>
-  </risk>
-  </risk_register>
+  ### Risk Register
+
+  #### Risk
+  - **Title**: [Risk Title]
+  - **Description**: [Full risk description]
+  - **Impact**: [High/Medium/Low]
+  - **Likelihood**: [High/Medium/Low]
+  - **Mitigation Strategies**:
+    - [Strategy 1]
+    - [Strategy 2]
+    - [Strategy 3]
+  - **Owner**: [Responsible team or role]
 
   Here's an example of a properly formatted risk entry:
 
-  <risk>
-  <title>Data Security Vulnerability</title>
-  <description>Risk of unauthorized access to sensitive client portfolio information during transmission or storage.</description>
-  <impact>High</impact>
-  <likelihood>Medium</likelihood>
-  <mitigation_strategies>
-  - Implement end-to-end encryption for all data transmissions
-  - Conduct regular security audits and penetration testing
-  - Establish strict access controls and monitoring systems
-  </mitigation_strategies>
-  <owner>Information Security Team</owner>
-  </risk>
+  #### Risk
+  - **Title**: Data Security Vulnerability
+  - **Description**: Risk of unauthorized access to sensitive client portfolio information during transmission or storage.
+  - **Impact**: High
+  - **Likelihood**: Medium
+  - **Mitigation Strategies**:
+    - Implement end-to-end encryption for all data transmissions
+    - Conduct regular security audits and penetration testing
+    - Establish strict access controls and monitoring systems
+  - **Owner**: Information Security Team
 
-  Process all risks provided in the {potential_risks} input and create a comprehensive risk register document using this format. Begin your response with a brief introduction to the risk register, and conclude with a summary of the total number of risks identified and any overarching themes or areas of concern.
-
-  return response in markdown format
+  Process all risks provided in the `{potential_risks}` input and create a comprehensive risk register document using this format. Begin your response with a brief introduction to the risk register, and conclude with a summary of the total number of risks identified and any overarching themes or areas of concern.
 
 resource_estimation: >
   # Resource Estimation for [Brief Feature Description]
@@ -488,3 +454,4 @@ resource_estimation: >
 
   ## Conclusion
   Summarize the key points of the resource estimation, including the overall timeline, team allocation, and any critical factors to watch. Provide recommendations or next steps for ensuring successful project completion.
+  return response in markdown format, do not use xml tags in the response

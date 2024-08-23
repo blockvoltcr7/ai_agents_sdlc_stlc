@@ -43,8 +43,6 @@ design_overview:
     **Constraints and Considerations**  
     [List and explanation of critical constraints or considerations]
 
-    ---
-
     Ensure that your design overview is clear, concise, and directly addresses the feature described in the provided information. Avoid including unnecessary details or speculation beyond what is provided in the input variables.
     return response in markdown format, do not use xml tags in the response
     
